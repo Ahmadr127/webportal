@@ -14,9 +14,16 @@
             <!-- Logo -->
             <div class="flex flex-col items-center mb-6">
                 <div class="rounded-2xl border border-[#0f766e]/20 bg-white shadow-md p-3">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-12 object-contain" />
+                    @php
+                        $siteSetting = \App\Models\SiteSetting::getInstance();
+                    @endphp
+                    @if($siteSetting->logo)
+                        <img src="{{ asset('storage/' . $siteSetting->logo) }}" alt="{{ $siteSetting->app_name }} Logo" class="h-12 object-contain" />
+                    @else
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-12 object-contain" />
+                    @endif
                 </div>
-                <p class="mt-3 text-xs font-semibold tracking-wide text-[#006D7A]">Sistem</p>
+                <p class="mt-3 text-xs font-semibold tracking-wide text-[#006D7A]">{{ $siteSetting->app_name ?? 'Sistem' }}</p>
             </div>
 
             <!-- Title -->

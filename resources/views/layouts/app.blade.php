@@ -81,9 +81,16 @@
             <div class="flex items-center justify-between h-20 px-4 border-b border-green-600 flex-shrink-0">
                 <div class="flex items-center space-x-3 overflow-hidden">
                     <div class="bg-white rounded-xl border border-green-200 shadow-sm p-2 flex-shrink-0">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 w-auto object-contain">
+                        @php
+                            $siteSetting = \App\Models\SiteSetting::getInstance();
+                        @endphp
+                        @if($siteSetting->logo)
+                            <img src="{{ asset('storage/' . $siteSetting->logo) }}" alt="{{ $siteSetting->app_name }} Logo" class="h-8 w-auto object-contain">
+                        @else
+                            <img src="{{ asset('images/logo.png') }}" alt="{{ $siteSetting->app_name }} Logo" class="h-8 w-auto object-contain">
+                        @endif
                     </div>
-                    <h1 x-show="!sidebarCollapsed" class="text-xl font-bold text-white tracking-wide truncate">Sistem</h1>
+                    <h1 x-show="!sidebarCollapsed" class="text-xl font-bold text-white tracking-wide truncate">{{ $siteSetting->app_name ?? 'Sistem' }}</h1>
                 </div>
                 
             </div>
@@ -128,6 +135,38 @@
                         <a href="{{ route('permissions.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('permissions.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Permissions">
                             <i class="fas fa-key w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Permissions</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    <!-- CMS Management Section -->
+                    <div class="mt-8 mb-6">
+                        <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold text-green-200 uppercase tracking-wider mb-3">CMS MANAGEMENT</h3>
+                    </div>
+
+                    @if(auth()->user()->hasPermission('manage_site_settings'))
+                    <li>
+                        <a href="{{ route('admin.site-settings.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.site-settings.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Site Settings">
+                            <i class="fas fa-cog w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">Site Settings</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(auth()->user()->hasPermission('manage_contact_info'))
+                    <li>
+                        <a href="{{ route('admin.contact-info.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.contact-info.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Contact Info">
+                            <i class="fas fa-address-book w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">Contact Info</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(auth()->user()->hasPermission('manage_sliders'))
+                    <li>
+                        <a href="{{ route('admin.sliders.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.sliders.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Sliders">
+                            <i class="fas fa-images w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">Sliders</span>
                         </a>
                     </li>
                     @endif

@@ -16,6 +16,9 @@ class RolePermissionSeeder extends Seeder
             ['name' => 'manage_permissions', 'display_name' => 'Kelola Permissions', 'description' => 'Mengelola permissions'],
             ['name' => 'view_dashboard', 'display_name' => 'Lihat Dashboard', 'description' => 'Melihat halaman dashboard'],
             ['name' => 'manage_users', 'display_name' => 'Kelola Users', 'description' => 'Mengelola pengguna'],
+            ['name' => 'manage_site_settings', 'display_name' => 'Kelola Site Settings', 'description' => 'Mengelola pengaturan situs'],
+            ['name' => 'manage_contact_info', 'display_name' => 'Kelola Contact Info', 'description' => 'Mengelola informasi kontak'],
+            ['name' => 'manage_sliders', 'display_name' => 'Kelola Sliders', 'description' => 'Mengelola image sliders'],
         ];
 
         foreach ($permissions as $permission) {
