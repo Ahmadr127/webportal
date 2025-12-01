@@ -18,6 +18,12 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             SiteDataSeeder::class,
             SliderSeeder::class,
+            NewsCategorySeeder::class,
+            NewsTagSeeder::class,
+            GalleryCategorySeeder::class,
+            AboutSectionSeeder::class,
+            CompanyValueSeeder::class,
+            StatSeeder::class,
         ]);
 
         // Create admin user

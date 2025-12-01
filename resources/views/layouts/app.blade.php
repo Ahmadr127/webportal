@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Sistem')</title>
-   @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
+   <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
     <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -167,6 +168,61 @@
                         <a href="{{ route('admin.sliders.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.sliders.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Sliders">
                             <i class="fas fa-images w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Sliders</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    <!-- Content Management Section -->
+                    <div class="mt-8 mb-6">
+                        <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold text-green-200 uppercase tracking-wider mb-3">CONTENT</h3>
+                    </div>
+
+                    @if(auth()->user()->hasPermission('view_news'))
+                    <li>
+                        <a href="{{ route('admin.news.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.news.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="News">
+                            <i class="fas fa-newspaper w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">News</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(auth()->user()->hasPermission('view_gallery'))
+                    <li>
+                        <a href="{{ route('admin.gallery.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.gallery.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Gallery">
+                            <i class="fas fa-image w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">Gallery</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(auth()->user()->hasPermission('view_services'))
+                    <li>
+                        <a href="{{ route('admin.services.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.services.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Services">
+                            <i class="fas fa-concierge-bell w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">Services</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(auth()->user()->hasPermission('view_testimonials'))
+                    <li>
+                        <a href="{{ route('admin.testimonials.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.testimonials.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Testimonials">
+                            <i class="fas fa-comments w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">Testimonials</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    <!-- Messages Section -->
+                    <div class="mt-8 mb-6">
+                        <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold text-green-200 uppercase tracking-wider mb-3">MESSAGES</h3>
+                    </div>
+
+                    @if(auth()->user()->hasPermission('view_contact_messages'))
+                    <li>
+                        <a href="{{ route('admin.contact-messages.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.contact-messages.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Contact Messages">
+                            <i class="fas fa-envelope w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">Contact Messages</span>
                         </a>
                     </li>
                     @endif

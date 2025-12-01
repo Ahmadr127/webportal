@@ -1,16 +1,15 @@
 @extends('layouts.home')
 
 @section('content')
-<!-- Navigation -->
 <x-navbar />
 
-<!-- Hero Section with Slider -->
-<section id="home" class="hero-slider relative h-screen overflow-hidden" x-data="{
+<!-- Hero Section -->
+<section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden" x-data="{
     currentSlide: 0,
     slides: [
         @foreach($sliders as $slider)
         {
-            image: '{{ asset('storage/' . $slider->image) }}',
+            image: '{{ str_starts_with($slider->image, 'http') ? $slider->image : asset('storage/' . $slider->image) }}',
             title: '{{ addslashes($slider->title) }}',
             subtitle: '{{ addslashes($slider->subtitle) }}',
             description: '{{ addslashes($slider->description) }}'
@@ -18,186 +17,207 @@
         @endforeach
     ],
     autoplay: null,
-    init() {
-        this.startAutoplay();
-    },
-    startAutoplay() {
-        this.autoplay = setInterval(() => {
-            this.next();
-        }, 5000);
-    },
-    stopAutoplay() {
-        if (this.autoplay) {
-            clearInterval(this.autoplay);
-        }
-    },
-    next() {
-        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-    },
-    prev() {
-        this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
-    },
-    goToSlide(index) {
-        this.currentSlide = index;
-        this.stopAutoplay();
-        this.startAutoplay();
-    }
+    init() { this.startAutoplay(); },
+    startAutoplay() { this.autoplay = setInterval(() => { this.next(); }, 5000); },
+    stopAutoplay() { if (this.autoplay) clearInterval(this.autoplay); },
+    next() { this.currentSlide = (this.currentSlide + 1) % this.slides.length; },
+    prev() { this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length; }
 }">
-    <!-- Slides -->
+    <!-- Slides Background -->
     <template x-for="(slide, index) in slides" :key="index">
         <div x-show="currentSlide === index"
              x-transition:enter="transition ease-out duration-1000"
-             x-transition:enter-start="opacity-0"
-             x-transition:enter-end="opacity-100"
+             x-transition:enter-start="opacity-0 transform scale-105"
+             x-transition:enter-end="opacity-100 transform scale-100"
              x-transition:leave="transition ease-in duration-500"
-             x-transition:leave-start="opacity-100"
-             x-transition:leave-end="opacity-0"
-             class="absolute inset-0 w-full h-full"
-             :style="`background: url('${slide.image}') center/cover;`">
-            <div class="container mx-auto px-6 md:px-12 lg:px-16 h-full flex items-center">
-                <div class="max-w-3xl text-white">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight"
-                        x-text="slide.title"></h1>
-                    <p class="text-xl md:text-2xl mb-4 opacity-90"
-                       x-text="slide.subtitle"></p>
-                    <p class="text-lg mb-8 opacity-90"
-                       x-text="slide.description"></p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#about" class="bg-white text-[#04726d] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">Learn More</a>
-                        <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#04726d] transition">Contact Us</a>
-                    </div>
-                </div>
-            </div>
+             x-transition:leave-start="opacity-100 transform scale-100"
+             x-transition:leave-end="opacity-0 transform scale-95"
+             class="absolute inset-0 w-full h-full bg-cover bg-center"
+             :style="`background-image: url('${slide.image}');`">
+             <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40"></div>
         </div>
     </template>
 
-    <!-- Navigation Arrows -->
-    <button @click="prev(); stopAutoplay(); startAutoplay();"
-            class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all z-10">
-        <i class="fas fa-chevron-left"></i>
-    </button>
-    <button @click="next(); stopAutoplay(); startAutoplay();"
-            class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all z-10">
-        <i class="fas fa-chevron-right"></i>
-    </button>
-
-    <!-- Slide Indicators -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-10">
+    <!-- Content -->
+    <div class="container mx-auto px-4 relative z-10 text-center text-white h-full flex flex-col justify-center items-center" data-aos="fade-up">
         <template x-for="(slide, index) in slides" :key="index">
-            <button @click="goToSlide(index)"
-                    :class="currentSlide === index ? 'bg-white w-12' : 'bg-white/50 w-3'"
-                    class="h-3 rounded-full transition-all duration-300 hover:bg-white/80"></button>
+            <div x-show="currentSlide === index" class="max-w-4xl">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight" x-text="slide.title"></h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90 font-light" x-text="slide.subtitle"></p>
+                <p class="text-lg mb-10 opacity-80 max-w-2xl mx-auto" x-text="slide.description"></p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="#about" class="bg-[#71b346] text-white px-8 py-4 rounded-full font-bold hover:bg-[#5a9136] transition transform hover:scale-105 shadow-lg border-2 border-[#71b346]">
+                        Explore Services
+                    </a>
+                    <a href="#contact" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-[#04726d] transition transform hover:scale-105">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button @click="prev(); stopAutoplay(); startAutoplay();" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all z-20 border border-white/20 group">
+        <i class="fas fa-chevron-left text-xl group-hover:-translate-x-1 transition-transform"></i>
+    </button>
+    <button @click="next(); stopAutoplay(); startAutoplay();" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all z-20 border border-white/20 group">
+        <i class="fas fa-chevron-right text-xl group-hover:translate-x-1 transition-transform"></i>
+    </button>
+    
+    <!-- Indicators -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
+        <template x-for="(slide, index) in slides" :key="index">
+            <button @click="currentSlide = index; stopAutoplay(); startAutoplay();" 
+                    :class="currentSlide === index ? 'w-12 bg-[#71b346]' : 'w-3 bg-white/50 hover:bg-white'"
+                    class="h-3 rounded-full transition-all duration-300"></button>
         </template>
     </div>
 </section>
 
-<!-- Welcome Section -->
-<section id="about" class="py-20 bg-white scroll-mt-32" data-aos="fade-up" data-aos-duration="1000">
-    <div class="container mx-auto px-6 md:px-12 lg:px-16">
-        <!-- Header -->
-        <div class="text-center mb-12" data-aos="fade-down" data-aos-duration="1000">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Welcome to EZ Services</h2>
-            <p class="text-base md:text-lg text-gray-800 max-w-5xl mx-auto leading-relaxed">
-                Penyedia Jasa Pengelola Parkir, Jasa Keamanan Satpam & Jasa Cleaning Service terbaik yang bertumpu pada nilai keamanan, ekonomis, profesional, inovasi & kenyamanan jasa kami
-            </p>
+<!-- Stats Section -->
+<section class="py-12 bg-white relative z-20 -mt-8 mx-4 md:mx-12 rounded-2xl shadow-xl border border-gray-100">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
+        <div class="p-4">
+            <div class="text-4xl font-bold text-[#04726d] mb-2 counter" data-target="10">0</div>
+            <div class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Years Experience</div>
+        </div>
+        <div class="p-4">
+            <div class="text-4xl font-bold text-[#04726d] mb-2 counter" data-target="50">0</div>
+            <div class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Trusted Clients</div>
+        </div>
+        <div class="p-4">
+            <div class="text-4xl font-bold text-[#04726d] mb-2">24/7</div>
+            <div class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Support Available</div>
+        </div>
+        <div class="p-4">
+            <div class="text-4xl font-bold text-[#04726d] mb-2">100%</div>
+            <div class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Satisfaction</div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="about" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-20" data-aos="fade-up">
+            <span class="text-[#71b346] font-bold tracking-wider uppercase text-sm">Our Expertise</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-6">Comprehensive Solutions</h2>
+            <div class="w-24 h-1.5 bg-gradient-to-r from-[#04726d] to-[#71b346] mx-auto rounded-full"></div>
         </div>
 
-        <!-- Services Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Service 1 -->
-            <div class="flex gap-6" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
-                <div class="flex-shrink-0">
-                    <i class="fas fa-motorcycle text-4xl text-[#71b346]"></i>
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group border-t-4 border-transparent hover:border-[#04726d]" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-16 h-16 bg-[#04726d]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#04726d] transition-colors duration-300">
+                    <i class="fas fa-parking text-3xl text-[#04726d] group-hover:text-white transition-colors"></i>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Jasa Pengelola Parkir</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Pelayanan yang optimal kepada pengguna jasa parkir, merupakan pelaksanaan kegiatan sehari-hari yang harus dilakukan dengan baik, sehingga kepuasan pengguna jasa parkir dapat terukur.
-                    </p>
-                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Parking Management</h3>
+                <p class="text-gray-600 leading-relaxed">Sistem pengelolaan parkir modern dengan teknologi cashless dan monitoring realtime untuk efisiensi maksimal.</p>
             </div>
 
             <!-- Service 2 -->
-            <div class="flex gap-6" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-                <div class="flex-shrink-0">
-                    <i class="fas fa-recycle text-4xl text-[#71b346]"></i>
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group border-t-4 border-transparent hover:border-[#71b346]" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 bg-[#71b346]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#71b346] transition-colors duration-300">
+                    <i class="fas fa-broom text-3xl text-[#71b346] group-hover:text-white transition-colors"></i>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Jasa Cleaning Services</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Elemen terpenting dalam setiap bangunan adalah kebersihan yang menjadi elemen utama dan dirasakan langsung oleh customer.
-                    </p>
-                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Cleaning Service</h3>
+                <p class="text-gray-600 leading-relaxed">Layanan kebersihan profesional untuk gedung perkantoran, mall, dan area publik dengan standar higienis tinggi.</p>
             </div>
 
             <!-- Service 3 -->
-            <div class="flex gap-6" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-                <div class="flex-shrink-0">
-                    <i class="fas fa-shield-alt text-4xl text-[#71b346]"></i>
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group border-t-4 border-transparent hover:border-[#04726d]" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-16 h-16 bg-[#04726d]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#04726d] transition-colors duration-300">
+                    <i class="fas fa-shield-alt text-3xl text-[#04726d] group-hover:text-white transition-colors"></i>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Jasa Keamanan Satpam</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Keberadaan satuan pengamanan (Security), adalah dunia usaha itu tidak lagi hanya bertumpu pada tugas-tugas keamanan dan penjagaan aset gedung atau lainnya.
-                    </p>
-                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Security Guard</h3>
+                <p class="text-gray-600 leading-relaxed">Personil keamanan terlatih dan bersertifikat untuk menjaga aset dan kenyamanan lingkungan bisnis Anda.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Features Section -->
-<section id="our-service" class="py-20 relative scroll-mt-32" data-aos="fade-up" data-aos-duration="1000">
-    <!-- Background with dark overlay -->
-    <div class="absolute inset-0" style="background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920') center/cover;"></div>
-    <div class="absolute inset-0 bg-black/60"></div>
+<!-- Testimonials Section (New Feature) -->
+<section class="py-24 bg-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-[#71b346]/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-[#04726d]/5 rounded-full blur-3xl"></div>
     
-    <div class="container mx-auto px-6 md:px-12 lg:px-16 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <!-- Feature 1 -->
-            <div class="text-center" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
-                <div class="flex justify-center mb-6">
-                    <i class="fas fa-laptop text-4xl text-white"></i>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-[#04726d] font-bold tracking-wider uppercase text-sm">Testimonials</span>
+            <h2 class="text-4xl font-bold text-gray-900 mt-2">What Our Clients Say</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="bg-gray-50 p-8 rounded-2xl relative" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-gray-200"></i>
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold text-white">JD</div>
+                    <div class="ml-4">
+                        <h4 class="font-bold text-gray-900">John Doe</h4>
+                        <p class="text-sm text-gray-500">Building Manager</p>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-4">Professional Works</h3>
-                <p class="text-white/90 leading-relaxed">
-                    Untuk memberikan peningkatan pelayanan secara maksimal kepada pengunjung/customer merupakan added value bagi setiap gedung, baik dipusat perbelanjaan, perkantoran, rumah sakit, apartemen, dan lain-lain.
-                </p>
+                <p class="text-gray-600 italic">"Pelayanan yang sangat profesional. Tim security sangat sigap dan ramah. Sistem parkir juga berjalan lancar tanpa kendala."</p>
+                <div class="flex text-yellow-400 mt-4">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
             </div>
 
-            <!-- Feature 2 -->
-            <div class="text-center" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-                <div class="flex justify-center mb-6">
-                    <i class="fas fa-heart text-4xl text-white"></i>
+            <!-- Testimonial 2 -->
+            <div class="bg-gray-50 p-8 rounded-2xl relative" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-gray-200"></i>
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold text-white">AS</div>
+                    <div class="ml-4">
+                        <h4 class="font-bold text-gray-900">Anita Sari</h4>
+                        <p class="text-sm text-gray-500">HR Director</p>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-4">Fast Delivery</h3>
-                <p class="text-white/90 leading-relaxed">
-                    Petugas kami melayani dengan ramah, respon yang cepat, dan tim yang support untuk bekerja 24/7 diseluruh wilayah.
-                </p>
+                <p class="text-gray-600 italic">"Cleaning service nya luar biasa detail. Kantor kami selalu bersih dan wangi. Sangat merekomendasikan EZ Services."</p>
+                <div class="flex text-yellow-400 mt-4">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
             </div>
 
-            <!-- Feature 3 -->
-            <div class="text-center" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-                <div class="flex justify-center mb-6">
-                    <i class="fas fa-bookmark text-4xl text-white"></i>
+             <!-- Testimonial 3 -->
+            <div class="bg-gray-50 p-8 rounded-2xl relative" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-gray-200"></i>
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold text-white">BP</div>
+                    <div class="ml-4">
+                        <h4 class="font-bold text-gray-900">Budi Pratama</h4>
+                        <p class="text-sm text-gray-500">Property Owner</p>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-4">PT. Anugerah Bina Karya</h3>
-                <p class="text-white/90 leading-relaxed">
-                    Jl. Tiang Bendera V Rukan Batavia Unit R-S No.41-43, Kel. Roa Malaka, Tambora, Jakarta Barat 11230
-                </p>
+                <p class="text-gray-600 italic">"Kerjasama yang baik sudah berjalan 3 tahun. Manajemen sangat responsif terhadap masukan. Sukses terus!"</p>
+                <div class="flex text-yellow-400 mt-4">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Removed contact section -->
+<!-- CTA Section -->
+<section class="py-20 bg-[#04726d] relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Siap Meningkatkan Kualitas Fasilitas Anda?</h2>
+        <p class="text-white/80 text-lg mb-10 max-w-2xl mx-auto">Hubungi kami hari ini untuk konsultasi gratis dan penawaran khusus sesuai kebutuhan properti Anda.</p>
+        <a href="#contact" class="inline-block bg-white text-[#04726d] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition transform hover:scale-105 shadow-xl">
+            Hubungi Kami Sekarang
+        </a>
+    </div>
+</section>
 
 <!-- Footer -->
 <x-footer />
 
-<!-- Scroll to Top Button -->
-<button id="scrollTop" class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-br from-[#04726d] to-[#71b346] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 pointer-events-none z-50">
-    <i class="fas fa-arrow-up"></i>
+<!-- Scroll to Top -->
+<button id="scrollTop" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-br from-[#04726d] to-[#71b346] text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center transform hover:scale-110 group">
+    <i class="fas fa-arrow-up group-hover:-translate-y-1 transition-transform"></i>
 </button>
 @endsection
 

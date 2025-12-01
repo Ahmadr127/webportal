@@ -25,6 +25,13 @@ use App\Http\Controllers\Admin\SliderController;
 // Homepage route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Public pages
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/news', [HomeController::class, 'news'])->name('news');
+Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
+Route::get('/services', [HomeController::class, 'services'])->name('services');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+
 // Authentication routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -71,6 +78,72 @@ Route::middleware('auth')->group(function () {
         // Sliders
         Route::middleware('permission:manage_sliders')->group(function () {
             Route::resource('sliders', SliderController::class);
+        });
+
+        // News Management
+        Route::middleware('permission:view_news')->group(function () {
+            Route::resource('news', \App\Http\Controllers\Admin\NewsController::class);
+            Route::post('news/{news}/toggle-publish', [\App\Http\Controllers\Admin\NewsController::class, 'togglePublish'])
+                ->name('news.toggle-publish')->middleware('permission:publish_news');
+        });
+
+        Route::middleware('permission:manage_news_categories')->group(function () {
+            Route::resource('news-categories', \App\Http\Controllers\Admin\NewsCategoryController::class);
+        });
+
+        Route::middleware('permission:manage_news_tags')->group(function () {
+            Route::resource('news-tags', \App\Http\Controllers\Admin\NewsTagController::class);
+        });
+
+        // Gallery Management
+        Route::middleware('permission:view_gallery')->group(function () {
+            Route::resource('gallery', \App\Http\Controllers\Admin\GalleryController::class);
+        });
+
+        Route::middleware('permission:manage_gallery_categories')->group(function () {
+            Route::resource('gallery-categories', \App\Http\Controllers\Admin\GalleryCategoryController::class);
+        });
+
+        // Services Management
+        Route::middleware('permission:view_services')->group(function () {
+            Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
+        });
+
+        // Testimonials Management
+        Route::middleware('permission:view_testimonials')->group(function () {
+            Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class);
+        });
+
+        // About Content Management
+        Route::middleware('permission:manage_about_content')->group(function () {
+            Route::resource('about-content', \App\Http\Controllers\Admin\AboutContentController::class);
+        });
+
+        Route::middleware('permission:manage_company_values')->group(function () {
+            Route::resource('company-values', \App\Http\Controllers\Admin\CompanyValueController::class);
+        });
+
+        // Stats Management
+        Route::middleware('permission:manage_stats')->group(function () {
+            Route::resource('stats', \App\Http\Controllers\Admin\StatController::class);
+        });
+
+        // Contact Messages
+        Route::middleware('permission:view_contact_messages')->group(function () {
+            Route::get('contact-messages', [\App\Http\Controllers\Admin\ContactMessageController::class, 'index'])
+                ->name('contact-messages.index');
+            Route::get('contact-messages/{contactMessage}', [\App\Http\Controllers\Admin\ContactMessageController::class, 'show'])
+                ->name('contact-messages.show');
+            Route::post('contact-messages/{contactMessage}/reply', [\App\Http\Controllers\Admin\ContactMessageController::class, 'reply'])
+                ->name('contact-messages.reply')->middleware('permission:reply_contact_messages');
+            Route::post('contact-messages/{contactMessage}/archive', [\App\Http\Controllers\Admin\ContactMessageController::class, 'archive'])
+                ->name('contact-messages.archive');
+            Route::delete('contact-messages/{contactMessage}', [\App\Http\Controllers\Admin\ContactMessageController::class, 'destroy'])
+                ->name('contact-messages.destroy')->middleware('permission:delete_contact_messages');
+            Route::post('contact-messages/bulk-delete', [\App\Http\Controllers\Admin\ContactMessageController::class, 'bulkDelete'])
+                ->name('contact-messages.bulk-delete')->middleware('permission:delete_contact_messages');
+            Route::post('contact-messages/bulk-archive', [\App\Http\Controllers\Admin\ContactMessageController::class, 'bulkArchive'])
+                ->name('contact-messages.bulk-archive');
         });
     });
 

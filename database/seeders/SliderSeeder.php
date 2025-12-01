@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Slider;
 
@@ -13,40 +12,38 @@ class SliderSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create default sliders if none exist
-        if (Slider::count() == 0) {
-            Slider::create([
-                'image' => 'sliders/slider1.jpg',
-                'title' => 'CASHLESS PARKING PAYMENT',
+        // First, clear existing sliders
+        Slider::truncate();
+        
+        $sliders = [
+            [
+                'title' => 'Smart Parking & Facility Services',
                 'subtitle' => 'SCAN - TAP - GO',
-                'description' => 'BAYAR PARKIR CEPAT & MUDAH',
-                'button_text' => 'Learn More',
-                'button_link' => '#',
-                'order' => 0,
-                'is_active' => true,
-            ]);
-
-            Slider::create([
-                'image' => 'sliders/slider2.jpg',
-                'title' => 'PROFESSIONAL CLEANING SERVICE',
-                'subtitle' => 'Kebersihan adalah Prioritas',
-                'description' => 'Layanan Kebersihan Terpercaya dan Berkualitas',
-                'button_text' => 'Our Services',
-                'button_link' => '#',
+                'description' => 'Solusi terintegrasi untuk pengelolaan parkir, keamanan, dan kebersihan dengan teknologi modern.',
+                'image' => 'https://images.unsplash.com/photo-1590674899484-d5640e854abe?w=1920&q=80',
                 'order' => 1,
                 'is_active' => true,
-            ]);
-
-            Slider::create([
-                'image' => 'sliders/slider3.jpg',
-                'title' => 'SECURITY SERVICES',
-                'subtitle' => 'Keamanan Terjamin 24/7',
-                'description' => 'Pengamanan Profesional untuk Aset Anda',
-                'button_text' => 'Contact Us',
-                'button_link' => '#',
+            ],
+            [
+                'title' => 'Professional Security Services',
+                'subtitle' => '24/7 Protection',
+                'description' => 'Personil keamanan terlatih dan bersertifikat untuk menjaga aset dan kenyamanan lingkungan bisnis Anda.',
+                'image' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80',
                 'order' => 2,
                 'is_active' => true,
-            ]);
+            ],
+            [
+                'title' => 'Premium Cleaning Solutions',
+                'subtitle' => 'Clean & Hygienic',
+                'description' => 'Layanan kebersihan profesional untuk gedung perkantoran, mall, dan area publik dengan standar higienis tinggi.',
+                'image' => 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1920&q=80',
+                'order' => 3,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($sliders as $slider) {
+            Slider::create($slider);
         }
     }
 }

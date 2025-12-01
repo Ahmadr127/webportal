@@ -48,7 +48,7 @@
         <div class="container mx-auto px-4 lg:px-8">
             <div class="flex items-center justify-between py-4">
             <!-- Logo -->
-            <div class="flex items-center space-x-3">
+            <a href="{{ route('home') }}" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
                 <div class="p-2">
                     @if($siteSetting->logo)
                         <img src="{{ asset('storage/' . $siteSetting->logo) }}" alt="{{ $siteSetting->app_name }} Logo" class="h-12 w-auto">
@@ -60,16 +60,16 @@
                     <h1 class="text-xl font-bold">{{ $siteSetting->app_name }}</h1>
                     <p class="text-xs opacity-90">{{ $siteSetting->app_tagline }}</p>
                 </div>
-            </div>
+            </a>
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center space-x-0.5 xl:space-x-1">
-                <a href="#home" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base">Home</a>
-                <a href="#about" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base">About</a>
-                <a href="#news" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base">News</a>
-                <a href="#gallery" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base">Gallery</a>
-                <a href="#our-service" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base">Our Service</a>
-                <a href="#contact" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base">Contact Us</a>
+                <a href="{{ route('home') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('home') ? 'border-white' : '' }}">Home</a>
+                <a href="{{ route('about') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('about') ? 'border-white' : '' }}">About</a>
+                <a href="{{ route('news') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('news') ? 'border-white' : '' }}">News</a>
+                <a href="{{ route('gallery') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('gallery') ? 'border-white' : '' }}">Gallery</a>
+                <a href="{{ route('services') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('services') ? 'border-white' : '' }}">Our Service</a>
+                <a href="{{ route('contact') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('contact') ? 'border-white' : '' }}">Contact Us</a>
                 <button class="text-white p-2 hover:bg-white/10 rounded transition" aria-label="Search">
                     <i class="fas fa-search text-lg"></i>
                 </button>
@@ -93,12 +93,12 @@
              x-transition:leave-end="opacity-0 transform -translate-y-2"
              class="container mx-auto px-4 lg:px-8 lg:hidden pb-4">
             <div class="flex flex-col space-y-2">
-                <a href="#home" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition">Home</a>
-                <a href="#about" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition">About</a>
-                <a href="#news" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition">News</a>
-                <a href="#gallery" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition">Gallery</a>
-                <a href="#our-service" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition">Our Service</a>
-                <a href="#contact" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition">Contact Us</a>
+                <a href="{{ route('home') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('home') ? 'bg-white/10' : '' }}">Home</a>
+                <a href="{{ route('about') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('about') ? 'bg-white/10' : '' }}">About</a>
+                <a href="{{ route('news') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('news') ? 'bg-white/10' : '' }}">News</a>
+                <a href="{{ route('gallery') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('gallery') ? 'bg-white/10' : '' }}">Gallery</a>
+                <a href="{{ route('services') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('services') ? 'bg-white/10' : '' }}">Our Service</a>
+                <a href="{{ route('contact') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('contact') ? 'bg-white/10' : '' }}">Contact Us</a>
             </div>
         </div>
     </div>
