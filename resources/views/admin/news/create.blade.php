@@ -57,11 +57,11 @@
                     </div>
 
                     <div>
-                        <label for="featured_image" class="block text-sm font-medium text-gray-700">Featured Image</label>
-                        <input type="file" name="featured_image" id="featured_image" accept="image/*"
-                               class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 @error('featured_image') border-red-500 @enderror">
+                        <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+                        <input type="file" name="image" id="image" accept="image/*"
+                               class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 @error('image') border-red-500 @enderror">
                         <p class="mt-1 text-sm text-gray-500">Max size: 2MB. Formats: JPEG, PNG, JPG, GIF</p>
-                        @error('featured_image')
+                        @error('image')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -151,7 +151,14 @@
 @endsection
 
 @push('scripts')
+<!-- CKEditor Local -->
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>
+// Initialize CKEditor
+CKEDITOR.replace('content', {
+    height: 400
+});
+
 // Auto-generate slug from title
 document.getElementById('title').addEventListener('blur', function() {
     if (!document.getElementById('slug').value) {

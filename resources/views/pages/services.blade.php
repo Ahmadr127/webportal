@@ -14,34 +14,43 @@
 <!-- Services Detail -->
 <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
+        @if($services->count() > 0)
         @foreach($services as $index => $service)
         <div class="mb-16 last:mb-0">
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden" data-aos="fade-up">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
                     <!-- Image Side -->
                     <div class="h-96 lg:h-auto {{ $index % 2 == 0 ? 'order-1' : 'order-2' }}">
-                        <img src="https://images.unsplash.com/photo-{{ $index == 0 ? '1590674899484-d5640e854abe' : ($index == 1 ? '1581578731548-c64695cc6952' : '1486406146926-c627a92ad1ab') }}?w=800&q=80" 
-                             alt="{{ $service['title'] }}" 
-                             class="w-full h-full object-cover">
+                        @if($service->image)
+                            <img src="{{ str_starts_with($service->image, 'http') ? $service->image : asset('storage/' . $service->image) }}" 
+                                 alt="{{ $service->title }}" 
+                                 class="w-full h-full object-cover">
+                        @else
+                            <img src="https://images.unsplash.com/photo-{{ $index == 0 ? '1590674899484-d5640e854abe' : ($index == 1 ? '1581578731548-c64695cc6952' : '1486406146926-c627a92ad1ab') }}?w=800&q=80" 
+                                 alt="{{ $service->title }}" 
+                                 class="w-full h-full object-cover">
+                        @endif
                     </div>
                     
                     <!-- Content Side -->
                     <div class="p-12 {{ $index % 2 == 0 ? 'order-2' : 'order-1' }} flex flex-col justify-center">
-                        <div class="w-20 h-20 bg-{{ $index == 0 ? '[#04726d]' : ($index == 1 ? '[#71b346]' : '[#04726d]') }}/10 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fas {{ $service['icon'] }} text-4xl text-{{ $index == 0 ? '[#04726d]' : ($index == 1 ? '[#71b346]' : '[#04726d]') }}"></i>
+                        <div class="w-20 h-20 bg-[{{ $loop->iteration % 2 == 0 ? '#71b346' : '#04726d' }}]/10 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fas {{ $service->icon }} text-4xl text-[{{ $loop->iteration % 2 == 0 ? '#71b346' : '#04726d' }}]"></i>
                         </div>
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ $service['title'] }}</h2>
-                        <p class="text-gray-600 leading-relaxed mb-6">{{ $service['description'] }}</p>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ $service->title }}</h2>
+                        <p class="text-gray-600 leading-relaxed mb-6">{{ $service->short_description }}</p>
                         
+                        @if($service->features && count($service->features) > 0)
                         <h4 class="font-bold text-gray-900 mb-4">Key Features:</h4>
                         <ul class="space-y-3 mb-8">
-                            @foreach($service['features'] as $feature)
+                            @foreach($service->features as $feature)
                             <li class="flex items-center text-gray-700">
                                 <i class="fas fa-check-circle text-[#71b346] mr-3"></i>
                                 <span>{{ $feature }}</span>
                             </li>
                             @endforeach
                         </ul>
+                        @endif
                         
                         <a href="{{ route('contact') }}" class="inline-flex items-center text-[#04726d] font-bold hover:text-[#71b346] transition-colors group">
                             Request a Quote
@@ -52,6 +61,12 @@
             </div>
         </div>
         @endforeach
+        @else
+        <div class="text-center py-12">
+            <i class="fas fa-concierge-bell text-6xl text-gray-300 mb-4"></i>
+            <p class="text-gray-500 text-lg">Belum ada layanan tersedia.</p>
+        </div>
+        @endif
     </div>
 </section>
 

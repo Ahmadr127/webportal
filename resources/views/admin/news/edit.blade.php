@@ -57,18 +57,18 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Current Featured Image</label>
-                        @if($news->featured_image)
+                        <label class="block text-sm font-medium text-gray-700">Current Image</label>
+                        @if($news->image)
                         <div class="mt-2 mb-3">
-                            <img src="{{ asset('storage/' . $news->featured_image) }}" alt="{{ $news->title }}" class="h-48 w-auto object-cover rounded-lg border">
+                            <img src="{{ str_starts_with($news->image, 'http') ? $news->image : asset('storage/' . $news->image) }}" alt="{{ $news->title }}" class="h-48 w-auto object-cover rounded-lg border">
                         </div>
                         @endif
                         
-                        <label for="featured_image" class="block text-sm font-medium text-gray-700 mt-2">Change Featured Image</label>
-                        <input type="file" name="featured_image" id="featured_image" accept="image/*"
+                        <label for="image" class="block text-sm font-medium text-gray-700 mt-2">Change Image</label>
+                        <input type="file" name="image" id="image" accept="image/*"
                                class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
                         <p class="mt-1 text-sm text-gray-500">Leave empty to keep current image</p>
-                        @error('featured_image')
+                        @error('image')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -166,3 +166,14 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<!-- CKEditor Local -->
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script>
+// Initialize CKEditor
+CKEDITOR.replace('content', {
+    height: 400
+});
+</script>
+@endpush

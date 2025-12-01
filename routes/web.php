@@ -28,9 +28,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Public pages
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/news', [HomeController::class, 'news'])->name('news');
+Route::get('/news/{slug}', [HomeController::class, 'newsShow'])->name('news.show');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/services', [HomeController::class, 'services'])->name('services');
+Route::get('/services/{slug}', [HomeController::class, 'serviceShow'])->name('services.show');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::post('/contact', [HomeController::class, 'contactSubmit'])->name('contact.submit');
 
 // Authentication routes
 Route::middleware('guest')->group(function () {

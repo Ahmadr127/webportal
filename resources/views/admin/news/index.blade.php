@@ -60,8 +60,10 @@
                     @forelse($news as $item)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            @if($item->featured_image)
-                            <img src="{{ asset('storage/' . $item->featured_image) }}" alt="{{ $item->title }}" class="h-12 w-12 rounded object-cover">
+                            @if($item->image)
+                            <img src="{{ str_starts_with($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}" 
+                                 alt="{{ $item->title }}" 
+                                 class="h-12 w-12 rounded object-cover">
                             @else
                             <div class="h-12 w-12 rounded bg-gray-200 flex items-center justify-center">
                                 <i class="fas fa-image text-gray-400"></i>

@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         // Call RolePermissionSeeder first
         $this->call([
             RolePermissionSeeder::class,
+            NewPermissionsSeeder::class, // Add new permissions for content management
             SiteDataSeeder::class,
             SliderSeeder::class,
             NewsCategorySeeder::class,
@@ -26,7 +27,7 @@ class DatabaseSeeder extends Seeder
             StatSeeder::class,
         ]);
 
-        // Create admin user
+        // Create admin user first before seeding content
         $adminRole = \App\Models\Role::where('name', 'admin')->first();
         
         User::factory()->create([
@@ -34,6 +35,14 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@example.com',
             'role_id' => $adminRole->id,
+        ]);
+
+        // Seed content data (requires admin user to exist)
+        $this->call([
+            NewsSeeder::class,
+            ServiceSeeder::class,
+            TestimonialSeeder::class,
+            GallerySeeder::class,
         ]);
     }
 }

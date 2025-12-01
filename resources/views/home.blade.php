@@ -77,23 +77,13 @@
 
 <!-- Stats Section -->
 <section class="py-12 bg-white relative z-20 -mt-8 mx-4 md:mx-12 rounded-2xl shadow-xl border border-gray-100">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
+    <div class="grid grid-cols-2 md:grid-cols-{{ min(count($stats), 4) }} gap-8 text-center divide-x divide-gray-100">
+        @foreach($stats as $stat)
         <div class="p-4">
-            <div class="text-4xl font-bold text-[#04726d] mb-2 counter" data-target="10">0</div>
-            <div class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Years Experience</div>
+            <div class="text-4xl font-bold text-[#04726d] mb-2">{{ $stat->value }}</div>
+            <div class="text-gray-500 text-sm uppercase tracking-wide font-semibold">{{ $stat->label }}</div>
         </div>
-        <div class="p-4">
-            <div class="text-4xl font-bold text-[#04726d] mb-2 counter" data-target="50">0</div>
-            <div class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Trusted Clients</div>
-        </div>
-        <div class="p-4">
-            <div class="text-4xl font-bold text-[#04726d] mb-2">24/7</div>
-            <div class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Support Available</div>
-        </div>
-        <div class="p-4">
-            <div class="text-4xl font-bold text-[#04726d] mb-2">100%</div>
-            <div class="text-gray-500 text-sm uppercase tracking-wide font-semibold">Satisfaction</div>
-        </div>
+        @endforeach
     </div>
 </section>
 
@@ -107,32 +97,15 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Service 1 -->
-            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group border-t-4 border-transparent hover:border-[#04726d]" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-16 h-16 bg-[#04726d]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#04726d] transition-colors duration-300">
-                    <i class="fas fa-parking text-3xl text-[#04726d] group-hover:text-white transition-colors"></i>
+            @foreach($services as $index => $service)
+            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group border-t-4 border-transparent hover:border-[{{ $loop->iteration % 2 == 0 ? '#71b346' : '#04726d' }}]" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
+                <div class="w-16 h-16 bg-[{{ $loop->iteration % 2 == 0 ? '#71b346' : '#04726d' }}]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[{{ $loop->iteration % 2 == 0 ? '#71b346' : '#04726d' }}] transition-colors duration-300">
+                    <i class="fas {{ $service->icon }} text-3xl text-[{{ $loop->iteration % 2 == 0 ? '#71b346' : '#04726d' }}] group-hover:text-white transition-colors"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Parking Management</h3>
-                <p class="text-gray-600 leading-relaxed">Sistem pengelolaan parkir modern dengan teknologi cashless dan monitoring realtime untuk efisiensi maksimal.</p>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ $service->title }}</h3>
+                <p class="text-gray-600 leading-relaxed">{{ $service->short_description }}</p>
             </div>
-
-            <!-- Service 2 -->
-            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group border-t-4 border-transparent hover:border-[#71b346]" data-aos="fade-up" data-aos-delay="200">
-                <div class="w-16 h-16 bg-[#71b346]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#71b346] transition-colors duration-300">
-                    <i class="fas fa-broom text-3xl text-[#71b346] group-hover:text-white transition-colors"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Cleaning Service</h3>
-                <p class="text-gray-600 leading-relaxed">Layanan kebersihan profesional untuk gedung perkantoran, mall, dan area publik dengan standar higienis tinggi.</p>
-            </div>
-
-            <!-- Service 3 -->
-            <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group border-t-4 border-transparent hover:border-[#04726d]" data-aos="fade-up" data-aos-delay="300">
-                <div class="w-16 h-16 bg-[#04726d]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#04726d] transition-colors duration-300">
-                    <i class="fas fa-shield-alt text-3xl text-[#04726d] group-hover:text-white transition-colors"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Security Guard</h3>
-                <p class="text-gray-600 leading-relaxed">Personil keamanan terlatih dan bersertifikat untuk menjaga aset dan kenyamanan lingkungan bisnis Anda.</p>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -149,53 +122,34 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Testimonial 1 -->
-            <div class="bg-gray-50 p-8 rounded-2xl relative" data-aos="fade-up" data-aos-delay="100">
+            @foreach($testimonials as $index => $testimonial)
+            <div class="bg-gray-50 p-8 rounded-2xl relative" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
                 <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-gray-200"></i>
                 <div class="flex items-center mb-6">
-                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold text-white">JD</div>
+                    @if($testimonial->client_avatar)
+                        <img src="{{ $testimonial->client_avatar }}" alt="{{ $testimonial->client_name }}" class="w-12 h-12 rounded-full object-cover">
+                    @else
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold text-white">
+                            {{ strtoupper(substr($testimonial->client_name, 0, 2)) }}
+                        </div>
+                    @endif
                     <div class="ml-4">
-                        <h4 class="font-bold text-gray-900">John Doe</h4>
-                        <p class="text-sm text-gray-500">Building Manager</p>
+                        <h4 class="font-bold text-gray-900">{{ $testimonial->client_name }}</h4>
+                        <p class="text-sm text-gray-500">{{ $testimonial->client_position }}{{ $testimonial->client_company ? ', ' . $testimonial->client_company : '' }}</p>
                     </div>
                 </div>
-                <p class="text-gray-600 italic">"Pelayanan yang sangat profesional. Tim security sangat sigap dan ramah. Sistem parkir juga berjalan lancar tanpa kendala."</p>
+                <p class="text-gray-600 italic">"{{ $testimonial->testimonial }}"</p>
                 <div class="flex text-yellow-400 mt-4">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    @for($i = 1; $i <= 5; $i++)
+                        @if($i <= $testimonial->rating)
+                            <i class="fas fa-star"></i>
+                        @else
+                            <i class="far fa-star"></i>
+                        @endif
+                    @endfor
                 </div>
             </div>
-
-            <!-- Testimonial 2 -->
-            <div class="bg-gray-50 p-8 rounded-2xl relative" data-aos="fade-up" data-aos-delay="200">
-                <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-gray-200"></i>
-                <div class="flex items-center mb-6">
-                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold text-white">AS</div>
-                    <div class="ml-4">
-                        <h4 class="font-bold text-gray-900">Anita Sari</h4>
-                        <p class="text-sm text-gray-500">HR Director</p>
-                    </div>
-                </div>
-                <p class="text-gray-600 italic">"Cleaning service nya luar biasa detail. Kantor kami selalu bersih dan wangi. Sangat merekomendasikan EZ Services."</p>
-                <div class="flex text-yellow-400 mt-4">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-            </div>
-
-             <!-- Testimonial 3 -->
-            <div class="bg-gray-50 p-8 rounded-2xl relative" data-aos="fade-up" data-aos-delay="300">
-                <i class="fas fa-quote-right absolute top-8 right-8 text-4xl text-gray-200"></i>
-                <div class="flex items-center mb-6">
-                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold text-white">BP</div>
-                    <div class="ml-4">
-                        <h4 class="font-bold text-gray-900">Budi Pratama</h4>
-                        <p class="text-sm text-gray-500">Property Owner</p>
-                    </div>
-                </div>
-                <p class="text-gray-600 italic">"Kerjasama yang baik sudah berjalan 3 tahun. Manajemen sangat responsif terhadap masukan. Sukses terus!"</p>
-                <div class="flex text-yellow-400 mt-4">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
