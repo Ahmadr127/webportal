@@ -154,18 +154,6 @@
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-20 bg-[#04726d] relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-    <div class="container mx-auto px-4 relative z-10 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Siap Meningkatkan Kualitas Fasilitas Anda?</h2>
-        <p class="text-white/80 text-lg mb-10 max-w-2xl mx-auto">Hubungi kami hari ini untuk konsultasi gratis dan penawaran khusus sesuai kebutuhan properti Anda.</p>
-        <a href="#contact" class="inline-block bg-white text-[#04726d] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition transform hover:scale-105 shadow-xl">
-            Hubungi Kami Sekarang
-        </a>
-    </div>
-</section>
-
 <!-- Footer -->
 <x-footer />
 

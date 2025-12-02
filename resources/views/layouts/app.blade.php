@@ -213,6 +213,33 @@
                     </li>
                     @endif
 
+                    @if(auth()->user()->hasPermission('manage_about_content'))
+                    <li>
+                        <a href="{{ route('admin.about-content.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.about-content.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="About Content">
+                            <i class="fas fa-info-circle w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">About Content</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(auth()->user()->hasPermission('manage_company_values'))
+                    <li>
+                        <a href="{{ route('admin.company-values.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.company-values.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Company Values">
+                            <i class="fas fa-heart w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">Company Values</span>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(auth()->user()->hasPermission('manage_stats'))
+                    <li>
+                        <a href="{{ route('admin.stats.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.stats.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Statistics">
+                            <i class="fas fa-chart-line w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">Statistics</span>
+                        </a>
+                    </li>
+                    @endif
+
                     <!-- Messages Section -->
                     <div class="mt-8 mb-6">
                         <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold text-green-200 uppercase tracking-wider mb-3">MESSAGES</h3>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('section_key')->unique(); // e.g., 'company_profile', 'vision', 'mission'
             $table->string('title');
+            $table->string('subtitle')->nullable();
             $table->longText('content');
             $table->string('image')->nullable();
             $table->integer('order')->default(0);

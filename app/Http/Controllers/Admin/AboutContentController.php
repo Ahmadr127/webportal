@@ -25,6 +25,7 @@ class AboutContentController extends Controller
         $validated = $request->validate([
             'section_key' => 'required|string|max:255|unique:about_sections,section_key',
             'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'order' => 'nullable|integer',
@@ -51,6 +52,7 @@ class AboutContentController extends Controller
         $validated = $request->validate([
             'section_key' => 'required|string|max:255|unique:about_sections,section_key,' . $aboutContent->id,
             'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'order' => 'nullable|integer',

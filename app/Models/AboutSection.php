@@ -13,6 +13,7 @@ class AboutSection extends Model
     protected $fillable = [
         'section_key',
         'title',
+        'subtitle',
         'content',
         'image',
         'order',

@@ -4,7 +4,7 @@
 <x-navbar />
 
 <!-- Page Header -->
-<section class="relative bg-gradient-to-r from-[#04726d] to-[#71b346] py-24">
+<section class="relative bg-[#04726d] py-24">
     <div class="container mx-auto px-4 text-center text-white">
         <h1 class="text-5xl font-bold mb-4" data-aos="fade-up">Gallery</h1>
         <p class="text-xl opacity-90" data-aos="fade-up" data-aos-delay="100">Dokumentasi Layanan & Proyek Kami</p>

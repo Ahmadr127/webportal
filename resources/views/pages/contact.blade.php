@@ -4,7 +4,7 @@
 <x-navbar />
 
 <!-- Page Header -->
-<section class="relative bg-gradient-to-r from-[#04726d] to-[#71b346] py-24">
+<section class="relative bg-[#04726d] py-24">
     <div class="container mx-auto px-4 text-center text-white">
         <h1 class="text-5xl font-bold mb-4" data-aos="fade-up">Contact Us</h1>
         <p class="text-xl opacity-90" data-aos="fade-up" data-aos-delay="100">Hubungi Kami untuk Informasi Lebih Lanjut</p>
@@ -18,39 +18,64 @@
             <!-- Contact Form -->
             <div class="bg-white rounded-3xl shadow-xl p-10" data-aos="fade-right">
                 <h2 class="text-3xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-                <form>
+                
+                @if(session('success'))
+                    <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
+                        <i class="fas fa-check-circle mr-2"></i>{{ session('success') }}
+                    </div>
+                @endif
+
+                @if($errors->any())
+                    <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
+                        <ul class="list-disc list-inside">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form action="{{ route('contact.submit') }}" method="POST">
+                    @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                            <input type="text" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all" placeholder="John Doe">
+                            <input type="text" name="name" value="{{ old('name') }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all @error('name') border-red-500 @enderror" placeholder="John Doe">
+                            @error('name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                            <input type="email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all" placeholder="john@example.com">
+                            <input type="email" name="email" value="{{ old('email') }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all @error('email') border-red-500 @enderror" placeholder="john@example.com">
+                            @error('email')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                            <input type="tel" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all" placeholder="+62 812 3456 7890">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
-                            <select class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all">
-                                <option>General Inquiry</option>
-                                <option>Parking Management</option>
-                                <option>Cleaning Service</option>
-                                <option>Security Service</option>
-                                <option>Partnership</option>
-                            </select>
-                        </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
+                        <select name="subject" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all @error('subject') border-red-500 @enderror">
+                            <option value="">-- Select Subject --</option>
+                            <option value="General Inquiry" {{ old('subject') == 'General Inquiry' ? 'selected' : '' }}>General Inquiry</option>
+                            <option value="Parking Management" {{ old('subject') == 'Parking Management' ? 'selected' : '' }}>Parking Management</option>
+                            <option value="Cleaning Service" {{ old('subject') == 'Cleaning Service' ? 'selected' : '' }}>Cleaning Service</option>
+                            <option value="Security Service" {{ old('subject') == 'Security Service' ? 'selected' : '' }}>Security Service</option>
+                            <option value="Partnership" {{ old('subject') == 'Partnership' ? 'selected' : '' }}>Partnership</option>
+                        </select>
+                        @error('subject')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="mb-8">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
-                        <textarea rows="5" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all" placeholder="Tell us about your needs..."></textarea>
+                        <textarea name="message" rows="5" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all @error('message') border-red-500 @enderror" placeholder="Tell us about your needs...">{{ old('message') }}</textarea>
+                        @error('message')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <button type="submit" class="w-full bg-gradient-to-r from-[#04726d] to-[#71b346] text-white py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-                        Send Message
+                        <i class="fas fa-paper-plane mr-2"></i>Send Message
                     </button>
                 </form>
             </div>
