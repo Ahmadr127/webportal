@@ -16,18 +16,18 @@ class SiteDataSeeder extends Seeder
     {
         // Create default site settings
         SiteSetting::updateOrCreate([], [
-            'app_name' => 'EZ Services',
-            'app_tagline' => 'Jasa Pengelola Parkir, Jasa Keamanan dan Jasa Cleaning Service',
-            'primary_color' => '#04726d',
-            'secondary_color' => '#71b346',
+            'app_name' => 'Semesta Services',
+            'app_tagline' => 'Tenaga Kerja Andal untuk Operasional yang Aman dan Efisien',
+            'primary_color' => '#107BC1',
+            'secondary_color' => '#34B1EF',
         ]);
 
         // Create default contact info
         ContactInfo::updateOrCreate([], [
-            'phone_1' => '021-26692269',
-            'phone_2' => '021-22692977',
-            'email' => 'contact@ezservices.co.id',
-            'address' => 'Jl. Tiang Bendera V Rukan Batavia Unit R-S No.41-43, Kel. Roa Malaka, Tambora, Jakarta Barat 11230',
+            'phone_1' => '021-xxx-xxxx',
+            'phone_2' => '021-xxx-xxxx',
+            'email' => 'xxx@semestaservices.co.id',
+            'address' => 'Jl. xxx',
             'facebook_url' => 'https://facebook.com',
             'instagram_url' => 'https://instagram.com',
             'twitter_url' => 'https://twitter.com',
