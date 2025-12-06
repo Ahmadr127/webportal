@@ -15,7 +15,7 @@
     @if($siteSetting->favicon)
         <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $siteSetting->favicon) }}">
     @else
-        <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
     @endif
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
