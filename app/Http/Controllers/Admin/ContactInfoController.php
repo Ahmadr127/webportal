@@ -21,6 +21,7 @@ class ContactInfoController extends Controller
             'phone_2' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
             'address' => 'nullable|string',
+            'map_embed_url' => 'nullable|string',
             'facebook_url' => 'nullable|url',
             'instagram_url' => 'nullable|url',
             'twitter_url' => 'nullable|url',
@@ -30,9 +31,17 @@ class ContactInfoController extends Controller
         ]);
 
         $contact = ContactInfo::getInstance();
+        
+        // Log untuk debug
+        \Log::info('Contact Info Update - Validated Data:', $validated);
+        \Log::info('Map Embed URL from request:', ['map_embed_url' => $request->input('map_embed_url')]);
+        
         $contact->update($validated);
+        
+        // Log setelah update
+        \Log::info('Contact Info After Update:', $contact->toArray());
 
         return redirect()->route('admin.contact-info.index')
-            ->with('success', 'Contact information updated successfully.');
+            ->with('success', 'Contact information updated successfully. Map URL: ' . ($contact->map_embed_url ? 'SET' : 'NOT SET'));
     }
 }

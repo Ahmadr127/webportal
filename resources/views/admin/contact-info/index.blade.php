@@ -79,6 +79,40 @@
                     @enderror
                 </div>
 
+                <!-- Map Embed URL -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">
+                        Google Maps Embed URL
+                    </label>
+                    <textarea name="map_embed_url" rows="3"
+                              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('map_embed_url') border-red-500 @enderror"
+                              placeholder="https://www.google.com/maps/embed?pb=...">{{ old('map_embed_url', $contact->map_embed_url) }}</textarea>
+                    @error('map_embed_url')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-2">
+                        <p class="text-blue-800 text-sm font-semibold mb-2">
+                            <i class="fas fa-info-circle"></i> Cara mendapatkan Google Maps Embed URL:
+                        </p>
+                        <ol class="text-blue-700 text-xs space-y-1 ml-4 list-decimal">
+                            <li>Buka <a href="https://www.google.com/maps" target="_blank" class="underline">Google Maps</a></li>
+                            <li>Cari lokasi Anda</li>
+                            <li>Klik tombol <strong>Share</strong></li>
+                            <li>Pilih tab <strong>Embed a map</strong></li>
+                            <li>Copy <strong>HANYA URL</strong> dari atribut <code class="bg-blue-100 px-1">src="..."</code></li>
+                            <li>Paste URL tersebut di field ini</li>
+                        </ol>
+                        <p class="text-blue-600 text-xs mt-2 font-semibold">
+                            ⚠️ <strong>PENTING:</strong> Jangan paste seluruh tag <code class="bg-blue-100 px-1">&lt;iframe&gt;...&lt;/iframe&gt;</code>, 
+                            hanya URL-nya saja!
+                        </p>
+                        <p class="text-blue-600 text-xs mt-1">
+                            ✅ <strong>Contoh yang BENAR:</strong><br>
+                            <code class="bg-white px-2 py-1 rounded text-xs block mt-1">https://www.google.com/maps/embed?pb=!1m18!1m12...</code>
+                        </p>
+                    </div>
+                </div>
+
                 <!-- Social Media -->
                 <h3 class="text-lg font-bold text-gray-800 mb-4 mt-8">Social Media</h3>
                 

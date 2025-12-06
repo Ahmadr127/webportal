@@ -13,6 +13,7 @@ class ContactInfo extends Model
         'phone_2',
         'email',
         'address',
+        'map_embed_url',
         'facebook_url',
         'instagram_url',
         'twitter_url',

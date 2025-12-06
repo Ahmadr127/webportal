@@ -156,8 +156,9 @@
 <section class="py-0 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="rounded-3xl overflow-hidden shadow-xl" data-aos="fade-up">
+            @if($contactInfo->map_embed_url)
             <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.9999999999995!2d106.8!3d-6.15!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDknMDAuMCJTIDEwNsKwNDgnMDAuMCJF!5e0!3m2!1sen!2sid!4v1234567890123!5m2!1sen!2sid" 
+                src="{{ $contactInfo->map_embed_url }}" 
                 width="100%" 
                 height="450" 
                 style="border:0;" 
@@ -165,6 +166,14 @@
                 loading="lazy" 
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
+            @else
+            <div class="bg-gray-200 h-96 flex items-center justify-center">
+                <p class="text-gray-500">
+                    <i class="fas fa-map-marked-alt text-4xl mb-2"></i><br>
+                    Map not configured yet
+                </p>
+            </div>
+            @endif
         </div>
     </div>
 </section>
