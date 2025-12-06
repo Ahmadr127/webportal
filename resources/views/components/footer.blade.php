@@ -1,4 +1,9 @@
-<footer class="bg-[#04726d] text-white">
+@php
+    $siteSetting = \App\Models\SiteSetting::getInstance();
+    $primaryColor = $siteSetting->primary_color ?? '#04726d';
+@endphp
+
+<footer class="text-white" style="background-color: {{ $primaryColor }};">
     <div class="container mx-auto px-6 md:px-12 lg:px-16 py-6">
         <!-- Quick Menu -->
         <div class="flex flex-wrap justify-center items-center gap-8">

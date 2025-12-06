@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @php
+        $siteSetting = \App\Models\SiteSetting::getInstance();
+        $primaryColor = $siteSetting->primary_color ?? '#04726d';
+        $secondaryColor = $siteSetting->secondary_color ?? '#71b346';
+    @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'SNF - Jasa Pengelola Parkir, Jasa Keamanan dan Jasa Cleaning Service')</title>
+    <meta name="description" content="{{ $siteSetting->meta_description ?? '' }}">
+    <meta name="keywords" content="{{ $siteSetting->meta_keywords ?? '' }}">
+    <title>@yield('title', $siteSetting->app_name ?? 'Home') - {{ $siteSetting->app_tagline ?? '' }}</title>
     <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
+    @if($siteSetting->favicon)
+        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $siteSetting->favicon) }}">
+    @else
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
+    @endif
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -16,6 +27,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <style>
+        :root {
+            --primary-color: {{ $primaryColor }};
+            --secondary-color: {{ $secondaryColor }};
+        }
+        
         html {
             scroll-behavior: smooth;
         }
@@ -40,7 +56,7 @@
         }
         
         .gradient-overlay {
-            background: linear-gradient(135deg, rgba(4, 114, 109, 0.9) 0%, rgba(113, 179, 70, 0.9) 100%);
+            background: linear-gradient(135deg, {{ $primaryColor }}e6 0%, {{ $secondaryColor }}e6 100%);
         }
     </style>
     

@@ -2,21 +2,23 @@
     @php
         $siteSetting = \App\Models\SiteSetting::getInstance();
         $contactInfo = \App\Models\ContactInfo::getInstance();
+        $primaryColor = $siteSetting->primary_color ?? '#04726d';
+        $secondaryColor = $siteSetting->secondary_color ?? '#71b346';
     @endphp
     
-    <div class="container mx-auto px-4 lg:px-8">
-        <!-- Top Contact Bar -->
-        <div class="border-b border-gray-200 py-2">
-            <div class="flex flex-col sm:flex-row justify-between items-center text-gray-700 text-sm space-y-2 sm:space-y-0">
+    <!-- Top Contact Bar -->
+    <div class="py-2" style="background-color: {{ $primaryColor }};">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center text-white text-sm space-y-2 sm:space-y-0">
                 <div class="flex items-center space-x-6">
                     @if($contactInfo->phone_1)
-                    <a href="tel:{{ $contactInfo->phone_1 }}" class="flex items-center hover:text-[#71b346] transition">
+                    <a href="tel:{{ $contactInfo->phone_1 }}" class="flex items-center text-white hover:text-white/80 transition">
                         <i class="fas fa-phone mr-2"></i>
                         {{ $contactInfo->phone_1 }}@if($contactInfo->phone_2), {{ $contactInfo->phone_2 }}@endif
                     </a>
                     @endif
                     @if($contactInfo->email)
-                    <a href="mailto:{{ $contactInfo->email }}" class="hidden md:flex items-center hover:text-[#71b346] transition">
+                    <a href="mailto:{{ $contactInfo->email }}" class="hidden md:flex items-center text-white hover:text-white/80 transition">
                         <i class="fas fa-envelope mr-2"></i>
                         {{ $contactInfo->email }}
                     </a>
@@ -24,17 +26,17 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     @if($contactInfo->facebook_url)
-                    <a href="{{ $contactInfo->facebook_url }}" target="_blank" class="hover:text-[#71b346] transition" aria-label="Facebook">
+                    <a href="{{ $contactInfo->facebook_url }}" target="_blank" class="text-white hover:text-white/80 transition" aria-label="Facebook">
                         <i class="fab fa-facebook-f"></i>
                     </a>
                     @endif
                     @if($contactInfo->instagram_url)
-                    <a href="{{ $contactInfo->instagram_url }}" target="_blank" class="hover:text-[#71b346] transition" aria-label="Instagram">
+                    <a href="{{ $contactInfo->instagram_url }}" target="_blank" class="text-white hover:text-white/80 transition" aria-label="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
                     @endif
                     @if($contactInfo->twitter_url)
-                    <a href="{{ $contactInfo->twitter_url }}" target="_blank" class="hover:text-[#71b346] transition" aria-label="Twitter">
+                    <a href="{{ $contactInfo->twitter_url }}" target="_blank" class="text-white hover:text-white/80 transition" aria-label="Twitter">
                         <i class="fab fa-twitter"></i>
                     </a>
                     @endif
@@ -43,40 +45,34 @@
         </div>
     </div>
 
-    <!-- Main Navigation with Solid Color -->
-    <div class="bg-[#04726d]">
+    <!-- Main Navigation with White Background -->
+    <div class="bg-white border-b border-gray-200">
         <div class="container mx-auto px-4 lg:px-8">
             <div class="flex items-center justify-between py-4">
             <!-- Logo -->
-            <a href="{{ route('home') }}" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-                <div class="p-2">
-                    @if($siteSetting->logo)
-                        <img src="{{ asset('storage/' . $siteSetting->logo) }}" alt="{{ $siteSetting->app_name }} Logo" class="h-12 w-auto">
-                    @else
-                        <img src="{{ asset('images/logo.png') }}" alt="{{ $siteSetting->app_name }} Logo" class="h-12 w-auto">
-                    @endif
-                </div>
-                <div class="text-white">
-                    <h1 class="text-xl font-bold">{{ $siteSetting->app_name }}</h1>
-                    <p class="text-xs opacity-90">{{ $siteSetting->app_tagline }}</p>
-                </div>
+            <a href="{{ route('home') }}" class="hover:opacity-80 transition-opacity">
+                @if($siteSetting->logo)
+                    <img src="{{ asset('storage/' . $siteSetting->logo) }}" alt="{{ $siteSetting->app_name }} Logo" class="h-12 w-auto">
+                @else
+                    <img src="{{ asset('images/logo.png') }}" alt="{{ $siteSetting->app_name }} Logo" class="h-12 w-auto">
+                @endif
             </a>
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center space-x-0.5 xl:space-x-1">
-                <a href="{{ route('home') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('home') ? 'border-white' : '' }}">Home</a>
-                <a href="{{ route('about') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('about') ? 'border-white' : '' }}">About</a>
-                <a href="{{ route('news') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('news') ? 'border-white' : '' }}">News</a>
-                <a href="{{ route('gallery') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('gallery') ? 'border-white' : '' }}">Gallery</a>
-                <a href="{{ route('services') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('services') ? 'border-white' : '' }}">Our Service</a>
-                <a href="{{ route('contact') }}" class="text-white font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent hover:border-white transition-colors text-sm xl:text-base {{ request()->routeIs('contact') ? 'border-white' : '' }}">Contact Us</a>
-                <button class="text-white p-2 hover:bg-white/10 rounded transition" aria-label="Search">
+                <a href="{{ route('home') }}" class="font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent transition-colors text-sm xl:text-base {{ request()->routeIs('home') ? 'border-b-2' : '' }}" style="color: {{ request()->routeIs('home') ? $primaryColor : '#374151' }}; border-color: {{ request()->routeIs('home') ? $primaryColor : 'transparent' }};" onmouseover="this.style.borderColor='{{ $primaryColor }}'" onmouseout="this.style.borderColor='{{ request()->routeIs('home') ? $primaryColor : 'transparent' }}';">Home</a>
+                <a href="{{ route('about') }}" class="font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent transition-colors text-sm xl:text-base {{ request()->routeIs('about') ? 'border-b-2' : '' }}" style="color: {{ request()->routeIs('about') ? $primaryColor : '#374151' }}; border-color: {{ request()->routeIs('about') ? $primaryColor : 'transparent' }};" onmouseover="this.style.borderColor='{{ $primaryColor }}'" onmouseout="this.style.borderColor='{{ request()->routeIs('about') ? $primaryColor : 'transparent' }}';">About</a>
+                <a href="{{ route('news') }}" class="font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent transition-colors text-sm xl:text-base {{ request()->routeIs('news') ? 'border-b-2' : '' }}" style="color: {{ request()->routeIs('news') ? $primaryColor : '#374151' }}; border-color: {{ request()->routeIs('news') ? $primaryColor : 'transparent' }};" onmouseover="this.style.borderColor='{{ $primaryColor }}'" onmouseout="this.style.borderColor='{{ request()->routeIs('news') ? $primaryColor : 'transparent' }}';">News</a>
+                <a href="{{ route('gallery') }}" class="font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent transition-colors text-sm xl:text-base {{ request()->routeIs('gallery') ? 'border-b-2' : '' }}" style="color: {{ request()->routeIs('gallery') ? $primaryColor : '#374151' }}; border-color: {{ request()->routeIs('gallery') ? $primaryColor : 'transparent' }};" onmouseover="this.style.borderColor='{{ $primaryColor }}'" onmouseout="this.style.borderColor='{{ request()->routeIs('gallery') ? $primaryColor : 'transparent' }}';">Gallery</a>
+                <a href="{{ route('services') }}" class="font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent transition-colors text-sm xl:text-base {{ request()->routeIs('services') ? 'border-b-2' : '' }}" style="color: {{ request()->routeIs('services') ? $primaryColor : '#374151' }}; border-color: {{ request()->routeIs('services') ? $primaryColor : 'transparent' }};" onmouseover="this.style.borderColor='{{ $primaryColor }}'" onmouseout="this.style.borderColor='{{ request()->routeIs('services') ? $primaryColor : 'transparent' }}';">Our Service</a>
+                <a href="{{ route('contact') }}" class="font-medium px-2 xl:px-4 py-2 border-b-2 border-transparent transition-colors text-sm xl:text-base {{ request()->routeIs('contact') ? 'border-b-2' : '' }}" style="color: {{ request()->routeIs('contact') ? $primaryColor : '#374151' }}; border-color: {{ request()->routeIs('contact') ? $primaryColor : 'transparent' }};" onmouseover="this.style.borderColor='{{ $primaryColor }}'" onmouseout="this.style.borderColor='{{ request()->routeIs('contact') ? $primaryColor : 'transparent' }}';">Contact Us</a>
+                <button class="p-2 rounded transition" style="color: #374151;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'" aria-label="Search">
                     <i class="fas fa-search text-lg"></i>
                 </button>
             </div>
 
             <!-- Mobile Menu Button -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-white p-2">
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2" style="color: {{ $primaryColor }};">
                 <i class="fas fa-bars text-2xl" x-show="!mobileMenuOpen"></i>
                 <i class="fas fa-times text-2xl" x-show="mobileMenuOpen"></i>
             </button>
@@ -93,12 +89,12 @@
              x-transition:leave-end="opacity-0 transform -translate-y-2"
              class="container mx-auto px-4 lg:px-8 lg:hidden pb-4">
             <div class="flex flex-col space-y-2">
-                <a href="{{ route('home') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('home') ? 'bg-white/10' : '' }}">Home</a>
-                <a href="{{ route('about') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('about') ? 'bg-white/10' : '' }}">About</a>
-                <a href="{{ route('news') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('news') ? 'bg-white/10' : '' }}">News</a>
-                <a href="{{ route('gallery') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('gallery') ? 'bg-white/10' : '' }}">Gallery</a>
-                <a href="{{ route('services') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('services') ? 'bg-white/10' : '' }}">Our Service</a>
-                <a href="{{ route('contact') }}" class="text-white font-medium hover:bg-white/10 px-4 py-2 rounded transition {{ request()->routeIs('contact') ? 'bg-white/10' : '' }}">Contact Us</a>
+                <a href="{{ route('home') }}" class="font-medium px-4 py-2 rounded transition {{ request()->routeIs('home') ? '' : '' }}" style="color: {{ request()->routeIs('home') ? $primaryColor : '#374151' }}; background-color: {{ request()->routeIs('home') ? $primaryColor.'20' : 'transparent' }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}20'" onmouseout="this.style.backgroundColor='{{ request()->routeIs('home') ? $primaryColor.'20' : 'transparent' }}'">Home</a>
+                <a href="{{ route('about') }}" class="font-medium px-4 py-2 rounded transition {{ request()->routeIs('about') ? '' : '' }}" style="color: {{ request()->routeIs('about') ? $primaryColor : '#374151' }}; background-color: {{ request()->routeIs('about') ? $primaryColor.'20' : 'transparent' }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}20'" onmouseout="this.style.backgroundColor='{{ request()->routeIs('about') ? $primaryColor.'20' : 'transparent' }}'">About</a>
+                <a href="{{ route('news') }}" class="font-medium px-4 py-2 rounded transition {{ request()->routeIs('news') ? '' : '' }}" style="color: {{ request()->routeIs('news') ? $primaryColor : '#374151' }}; background-color: {{ request()->routeIs('news') ? $primaryColor.'20' : 'transparent' }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}20'" onmouseout="this.style.backgroundColor='{{ request()->routeIs('news') ? $primaryColor.'20' : 'transparent' }}'">News</a>
+                <a href="{{ route('gallery') }}" class="font-medium px-4 py-2 rounded transition {{ request()->routeIs('gallery') ? '' : '' }}" style="color: {{ request()->routeIs('gallery') ? $primaryColor : '#374151' }}; background-color: {{ request()->routeIs('gallery') ? $primaryColor.'20' : 'transparent' }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}20'" onmouseout="this.style.backgroundColor='{{ request()->routeIs('gallery') ? $primaryColor.'20' : 'transparent' }}'">Gallery</a>
+                <a href="{{ route('services') }}" class="font-medium px-4 py-2 rounded transition {{ request()->routeIs('services') ? '' : '' }}" style="color: {{ request()->routeIs('services') ? $primaryColor : '#374151' }}; background-color: {{ request()->routeIs('services') ? $primaryColor.'20' : 'transparent' }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}20'" onmouseout="this.style.backgroundColor='{{ request()->routeIs('services') ? $primaryColor.'20' : 'transparent' }}'">Our Service</a>
+                <a href="{{ route('contact') }}" class="font-medium px-4 py-2 rounded transition {{ request()->routeIs('contact') ? '' : '' }}" style="color: {{ request()->routeIs('contact') ? $primaryColor : '#374151' }}; background-color: {{ request()->routeIs('contact') ? $primaryColor.'20' : 'transparent' }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}20'" onmouseout="this.style.backgroundColor='{{ request()->routeIs('contact') ? $primaryColor.'20' : 'transparent' }}'">Contact Us</a>
             </div>
         </div>
     </div>

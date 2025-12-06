@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @php
+        $siteSetting = \App\Models\SiteSetting::getInstance();
+    @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Sistem')</title>
+    <meta name="description" content="{{ $siteSetting->meta_description ?? '' }}">
+    <meta name="keywords" content="{{ $siteSetting->meta_keywords ?? '' }}">
+    <title>@yield('title', $siteSetting->app_name ?? 'Sistem') - {{ $siteSetting->app_name ?? 'Sistem' }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
    <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
+    @if($siteSetting->favicon)
+        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $siteSetting->favicon) }}">
+    @else
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
+    @endif
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css/dynamic-theme.css') }}">
     <style>
         /* Global overflow prevention */
         html, body {
@@ -76,15 +86,13 @@
                 sidebarOpen ? 'translate-x-0' : '-translate-x-full',
                 sidebarCollapsed ? 'w-20' : 'w-64'
             ]"
-            class="fixed inset-y-0 left-0 z-50 bg-green-700 shadow-lg transform transition-all duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 flex flex-col h-screen">
+            class="fixed inset-y-0 left-0 z-50 shadow-lg transform transition-all duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 flex flex-col h-screen"
+            style="background-color: {{ $siteSetting->primary_color ?? '#04726d' }};">
             
             <!-- Logo/Brand -->
-            <div class="flex items-center justify-between h-20 px-4 border-b border-green-600 flex-shrink-0">
+            <div class="flex items-center justify-between h-20 px-4 border-b flex-shrink-0" style="border-color: {{ $siteSetting->primary_color ? 'rgba(255,255,255,0.2)' : '#059669' }};">
                 <div class="flex items-center space-x-3 overflow-hidden">
-                    <div class="bg-white rounded-xl border border-green-200 shadow-sm p-2 flex-shrink-0">
-                        @php
-                            $siteSetting = \App\Models\SiteSetting::getInstance();
-                        @endphp
+                    <div class="bg-white rounded-xl border shadow-sm p-2 flex-shrink-0" style="border-color: {{ $siteSetting->primary_color ? 'rgba(255,255,255,0.3)' : '#bbf7d0' }};">
                         @if($siteSetting->logo)
                             <img src="{{ asset('storage/' . $siteSetting->logo) }}" alt="{{ $siteSetting->app_name }} Logo" class="h-8 w-auto object-contain">
                         @else
@@ -99,13 +107,13 @@
             <!-- Sidebar Navigation -->
             <nav class="flex-1 overflow-y-auto sidebar-scroll px-4 py-6">
                 <div class="mb-6">
-                    <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold text-green-200 uppercase tracking-wider mb-3">MENU UTAMA</h3>
+                    <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold uppercase tracking-wider mb-3" style="color: rgba(255,255,255,0.7);">MENU UTAMA</h3>
                 </div>
                 
                 <ul class="space-y-2">
                     @if(auth()->user()->hasPermission('view_dashboard'))
                     <li>
-                        <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('dashboard') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Dashboard">
+                        <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('dashboard') ? '' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Dashboard" style="{{ request()->routeIs('dashboard') ? 'background-color: rgba(0,0,0,0.2);' : '' }}" onmouseover="this.style.backgroundColor='rgba(0,0,0,0.2)'" onmouseout="this.style.backgroundColor='{{ request()->routeIs('dashboard') ? 'rgba(0,0,0,0.2)' : 'transparent' }}'">
                             <i class="fas fa-tachometer-alt w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Dashboard</span>
                         </a>
@@ -113,9 +121,10 @@
                     @endif
                     
 
+
                     @if(auth()->user()->hasPermission('manage_users'))
                     <li>
-                        <a href="{{ route('users.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('users.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Users">
+                        <a href="{{ route('users.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('users.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Users">
                             <i class="fas fa-users w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Users</span>
                         </a>
@@ -124,7 +133,7 @@
 
                     @if(auth()->user()->hasPermission('manage_roles'))
                     <li>
-                        <a href="{{ route('roles.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('roles.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Roles">
+                        <a href="{{ route('roles.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('roles.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Roles">
                             <i class="fas fa-user-shield w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Roles</span>
                         </a>
@@ -133,7 +142,7 @@
 
                     @if(auth()->user()->hasPermission('manage_permissions'))
                     <li>
-                        <a href="{{ route('permissions.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('permissions.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Permissions">
+                        <a href="{{ route('permissions.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('permissions.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Permissions">
                             <i class="fas fa-key w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Permissions</span>
                         </a>
@@ -142,12 +151,12 @@
 
                     <!-- CMS Management Section -->
                     <div class="mt-8 mb-6">
-                        <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold text-green-200 uppercase tracking-wider mb-3">CMS MANAGEMENT</h3>
+                        <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold uppercase tracking-wider mb-3" style="color: rgba(255,255,255,0.7);">CMS MANAGEMENT</h3>
                     </div>
 
                     @if(auth()->user()->hasPermission('manage_site_settings'))
                     <li>
-                        <a href="{{ route('admin.site-settings.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.site-settings.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Site Settings">
+                        <a href="{{ route('admin.site-settings.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.site-settings.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Site Settings">
                             <i class="fas fa-cog w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Site Settings</span>
                         </a>
@@ -156,7 +165,7 @@
 
                     @if(auth()->user()->hasPermission('manage_contact_info'))
                     <li>
-                        <a href="{{ route('admin.contact-info.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.contact-info.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Contact Info">
+                        <a href="{{ route('admin.contact-info.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.contact-info.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Contact Info">
                             <i class="fas fa-address-book w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Contact Info</span>
                         </a>
@@ -165,7 +174,7 @@
 
                     @if(auth()->user()->hasPermission('manage_sliders'))
                     <li>
-                        <a href="{{ route('admin.sliders.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.sliders.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Sliders">
+                        <a href="{{ route('admin.sliders.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.sliders.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Sliders">
                             <i class="fas fa-images w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Sliders</span>
                         </a>
@@ -174,12 +183,12 @@
 
                     <!-- Content Management Section -->
                     <div class="mt-8 mb-6">
-                        <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold text-green-200 uppercase tracking-wider mb-3">CONTENT</h3>
+                        <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold uppercase tracking-wider mb-3" style="color: rgba(255,255,255,0.7);">CONTENT</h3>
                     </div>
 
                     @if(auth()->user()->hasPermission('view_news'))
                     <li>
-                        <a href="{{ route('admin.news.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.news.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="News">
+                        <a href="{{ route('admin.news.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.news.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="News">
                             <i class="fas fa-newspaper w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">News</span>
                         </a>
@@ -188,7 +197,7 @@
 
                     @if(auth()->user()->hasPermission('view_gallery'))
                     <li>
-                        <a href="{{ route('admin.gallery.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.gallery.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Gallery">
+                        <a href="{{ route('admin.gallery.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Gallery">
                             <i class="fas fa-image w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Gallery</span>
                         </a>
@@ -197,7 +206,7 @@
 
                     @if(auth()->user()->hasPermission('view_services'))
                     <li>
-                        <a href="{{ route('admin.services.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.services.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Services">
+                        <a href="{{ route('admin.services.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.services.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Services">
                             <i class="fas fa-concierge-bell w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Services</span>
                         </a>
@@ -206,7 +215,7 @@
 
                     @if(auth()->user()->hasPermission('view_testimonials'))
                     <li>
-                        <a href="{{ route('admin.testimonials.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.testimonials.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Testimonials">
+                        <a href="{{ route('admin.testimonials.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Testimonials">
                             <i class="fas fa-comments w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Testimonials</span>
                         </a>
@@ -215,7 +224,7 @@
 
                     @if(auth()->user()->hasPermission('manage_about_content'))
                     <li>
-                        <a href="{{ route('admin.about-content.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.about-content.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="About Content">
+                        <a href="{{ route('admin.about-content.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.about-content.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="About Content">
                             <i class="fas fa-info-circle w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">About Content</span>
                         </a>
@@ -224,7 +233,7 @@
 
                     @if(auth()->user()->hasPermission('manage_company_values'))
                     <li>
-                        <a href="{{ route('admin.company-values.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.company-values.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Company Values">
+                        <a href="{{ route('admin.company-values.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.company-values.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Company Values">
                             <i class="fas fa-heart w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Company Values</span>
                         </a>
@@ -233,7 +242,7 @@
 
                     @if(auth()->user()->hasPermission('manage_stats'))
                     <li>
-                        <a href="{{ route('admin.stats.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.stats.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Statistics">
+                        <a href="{{ route('admin.stats.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.stats.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Statistics">
                             <i class="fas fa-chart-line w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Statistics</span>
                         </a>
@@ -242,14 +251,15 @@
 
                     <!-- Messages Section -->
                     <div class="mt-8 mb-6">
-                        <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold text-green-200 uppercase tracking-wider mb-3">MESSAGES</h3>
+                        <h3 x-show="!sidebarCollapsed" class="text-xs font-semibold uppercase tracking-wider mb-3" style="color: rgba(255,255,255,0.7);">MESSAGES</h3>
                     </div>
 
                     @if(auth()->user()->hasPermission('view_contact_messages'))
                     <li>
-                        <a href="{{ route('admin.contact-messages.index') }}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-green-800 transition-colors {{ request()->routeIs('admin.contact-messages.*') ? 'bg-green-800' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Contact Messages">
+                        <a href="{{ route('admin.contact-messages.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="Contact Messages">
                             <i class="fas fa-envelope w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
                             <span x-show="!sidebarCollapsed">Contact Messages</span>
+
                         </a>
                     </li>
                     @endif
@@ -275,7 +285,7 @@
                         
                         <div class="hidden sm:block">
                             <h2 class="text-xl font-semibold text-gray-800">@yield('title', 'Dashboard')</h2>
-                            <p class="text-sm text-gray-500">Sistem</p>
+                            <p class="text-sm text-gray-500">{{ $siteSetting->app_name ?? 'Sistem' }}</p>
                         </div>
                         
                         <!-- Mobile Title -->

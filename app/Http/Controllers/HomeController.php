@@ -28,7 +28,7 @@ class HomeController extends Controller
         $sliders = Slider::active()->ordered()->get();
         $services = Service::active()->ordered()->take(3)->get();
         $stats = Stat::active()->ordered()->get();
-        $testimonials = Testimonial::active()->ordered()->take(3)->get();
+        $testimonials = Testimonial::active()->ordered()->get();
         $siteSetting = SiteSetting::getInstance();
         $contactInfo = ContactInfo::getInstance();
 

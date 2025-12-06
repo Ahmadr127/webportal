@@ -1,15 +1,12 @@
 @extends('layouts.home')
 
+@php
+    $primaryColor = $siteSetting->primary_color ?? '#04726d';
+    $secondaryColor = $siteSetting->secondary_color ?? '#71b346';
+@endphp
+
 @section('content')
 <x-navbar />
-
-<!-- Page Header -->
-<section class="relative bg-[#04726d] py-24">
-    <div class="container mx-auto px-4 text-center text-white">
-        <h1 class="text-5xl font-bold mb-4" data-aos="fade-up">Gallery</h1>
-        <p class="text-xl opacity-90" data-aos="fade-up" data-aos-delay="100">Dokumentasi Layanan & Proyek Kami</p>
-    </div>
-</section>
 
 <!-- Gallery Grid -->
 <section class="py-20 bg-gray-50">
@@ -68,23 +65,12 @@
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="bg-gradient-to-r from-[#04726d] to-[#71b346] rounded-3xl p-12 text-center" data-aos="fade-up">
-            <h3 class="text-3xl font-bold text-white mb-4">Tertarik dengan Layanan Kami?</h3>
-            <p class="text-white/90 mb-8 max-w-2xl mx-auto">Hubungi kami untuk konsultasi gratis dan dapatkan penawaran terbaik untuk kebutuhan fasilitas Anda.</p>
-            <a href="{{ route('contact') }}" class="inline-block bg-white text-[#04726d] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition transform hover:scale-105 shadow-xl">
-                Contact Us Now
-            </a>
-        </div>
-    </div>
-</section>
+<!-- Removed CTA Section -->
 
 <x-footer />
 
 <!-- Scroll to Top -->
-<button id="scrollTop" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-br from-[#04726d] to-[#71b346] text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center transform hover:scale-110 group">
+<button id="scrollTop" class="fixed bottom-8 right-8 w-14 h-14 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center transform hover:scale-110 group" style="background: linear-gradient(to bottom right, {{ $primaryColor }}, {{ $secondaryColor }});">
     <i class="fas fa-arrow-up group-hover:-translate-y-1 transition-transform"></i>
 </button>
 @endsection

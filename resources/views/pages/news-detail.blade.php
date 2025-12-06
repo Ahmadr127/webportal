@@ -1,10 +1,15 @@
 @extends('layouts.home')
 
+@php
+    $primaryColor = $siteSetting->primary_color ?? '#04726d';
+    $secondaryColor = $siteSetting->secondary_color ?? '#71b346';
+@endphp
+
 @section('content')
 <x-navbar />
 
 <!-- Article Header -->
-<section class="relative bg-gradient-to-r from-[#04726d] to-[#71b346] py-20">
+<section class="relative py-20" style="background: linear-gradient(to right, {{ $primaryColor }}, {{ $secondaryColor }});">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-white">
             <!-- Category & Date -->
@@ -48,7 +53,7 @@
             @endif
             
             <!-- Excerpt -->
-            <div class="bg-gradient-to-r from-[#04726d]/10 to-[#71b346]/10 border-l-4 border-[#04726d] p-6 rounded-r-lg mb-12" data-aos="fade-up">
+            <div class="border-l-4 p-6 rounded-r-lg mb-12" data-aos="fade-up" style="background: linear-gradient(to right, {{ $primaryColor }}20, {{ $secondaryColor }}20); border-color: {{ $primaryColor }};">
                 <p class="text-lg text-gray-700 italic">{{ $news->excerpt }}</p>
             </div>
             
@@ -63,7 +68,7 @@
                 <h3 class="text-lg font-bold text-gray-900 mb-4">Tags:</h3>
                 <div class="flex flex-wrap gap-2">
                     @foreach($news->tags as $tag)
-                    <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-[#04726d] hover:text-white transition-colors cursor-pointer">
+                    <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:text-white transition-colors cursor-pointer" style="background-color: #f3f4f6;" onmouseover="this.style.backgroundColor='{{ $primaryColor }}'; this.style.color='white';" onmouseout="this.style.backgroundColor='#f3f4f6'; this.style.color='#374151';">
                         #{{ $tag->name }}
                     </span>
                     @endforeach
@@ -115,11 +120,11 @@
                         <i class="fas fa-calendar-alt mr-2"></i>
                         {{ $related->published_at ? $related->published_at->format('d F Y') : $related->created_at->format('d F Y') }}
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-[#04726d] transition-colors line-clamp-2">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 hover:transition-colors line-clamp-2" style="cursor: pointer;" onmouseover="this.style.color='{{ $primaryColor }}'" onmouseout="this.style.color='#111827'">
                         {{ $related->title }}
                     </h3>
                     <p class="text-gray-600 mb-4 line-clamp-2">{{ $related->excerpt }}</p>
-                    <a href="{{ route('news.show', $related->slug) }}" class="inline-flex items-center text-[#04726d] font-semibold hover:text-[#71b346] transition-colors">
+                    <a href="{{ route('news.show', $related->slug) }}" class="inline-flex items-center font-semibold hover:transition-colors" style="color: {{ $primaryColor }};" onmouseover="this.style.color='{{ $secondaryColor }}'" onmouseout="this.style.color='{{ $primaryColor }}';">
                         Read More
                         <i class="fas fa-arrow-right ml-2"></i>
                     </a>
@@ -134,7 +139,7 @@
 <!-- Back to News Button -->
 <section class="py-12 bg-white">
     <div class="container mx-auto px-4 text-center">
-        <a href="{{ route('news') }}" class="inline-flex items-center bg-gradient-to-r from-[#04726d] to-[#71b346] text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+        <a href="{{ route('news') }}" class="inline-flex items-center text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105" style="background: linear-gradient(to right, {{ $primaryColor }}, {{ $secondaryColor }});">
             <i class="fas fa-arrow-left mr-3"></i>
             Back to All News
         </a>

@@ -1,15 +1,12 @@
 @extends('layouts.home')
 
+@php
+    $primaryColor = $siteSetting->primary_color ?? '#04726d';
+    $secondaryColor = $siteSetting->secondary_color ?? '#71b346';
+@endphp
+
 @section('content')
 <x-navbar />
-
-<!-- Page Header -->
-<section class="relative bg-[#04726d] py-24">
-    <div class="container mx-auto px-4 text-center text-white">
-        <h1 class="text-5xl font-bold mb-4" data-aos="fade-up">Contact Us</h1>
-        <p class="text-xl opacity-90" data-aos="fade-up" data-aos-delay="100">Hubungi Kami untuk Informasi Lebih Lanjut</p>
-    </div>
-</section>
 
 <!-- Contact Section -->
 <section class="py-20 bg-gray-50">
@@ -40,14 +37,14 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                            <input type="text" name="name" value="{{ old('name') }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all @error('name') border-red-500 @enderror" placeholder="John Doe">
+                            <input type="text" name="name" value="{{ old('name') }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all @error('name') border-red-500 @enderror" style="--tw-ring-color: {{ $primaryColor }};" placeholder="John Doe">
                             @error('name')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                            <input type="email" name="email" value="{{ old('email') }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all @error('email') border-red-500 @enderror" placeholder="john@example.com">
+                            <input type="email" name="email" value="{{ old('email') }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all @error('email') border-red-500 @enderror" style="--tw-ring-color: {{ $primaryColor }};" placeholder="john@example.com">
                             @error('email')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -55,7 +52,7 @@
                     </div>
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
-                        <select name="subject" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all @error('subject') border-red-500 @enderror">
+                        <select name="subject" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all @error('subject') border-red-500 @enderror" style="--tw-ring-color: {{ $primaryColor }};">
                             <option value="">-- Select Subject --</option>
                             <option value="General Inquiry" {{ old('subject') == 'General Inquiry' ? 'selected' : '' }}>General Inquiry</option>
                             <option value="Parking Management" {{ old('subject') == 'Parking Management' ? 'selected' : '' }}>Parking Management</option>
@@ -69,12 +66,12 @@
                     </div>
                     <div class="mb-8">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
-                        <textarea name="message" rows="5" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#04726d] focus:bg-white transition-all @error('message') border-red-500 @enderror" placeholder="Tell us about your needs...">{{ old('message') }}</textarea>
+                        <textarea name="message" rows="5" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all @error('message') border-red-500 @enderror" style="--tw-ring-color: {{ $primaryColor }};" placeholder="Tell us about your needs...">{{ old('message') }}</textarea>
                         @error('message')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-[#04726d] to-[#71b346] text-white py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <button type="submit" class="w-full text-white py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-all transform hover:-translate-y-1" style="background: linear-gradient(to right, {{ $primaryColor }}, {{ $secondaryColor }});">
                         <i class="fas fa-paper-plane mr-2"></i>Send Message
                     </button>
                 </form>
@@ -86,8 +83,8 @@
                     <h2 class="text-3xl font-bold text-gray-900 mb-8">Get in Touch</h2>
                     <div class="space-y-6">
                         <div class="flex items-start space-x-4">
-                            <div class="w-14 h-14 bg-[#04726d]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-2xl text-[#04726d]"></i>
+                            <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: {{ $primaryColor }}20;">
+                                <i class="fas fa-map-marker-alt text-2xl" style="color: {{ $primaryColor }};"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-gray-900 mb-1 text-lg">Office Address</h4>
@@ -96,8 +93,8 @@
                         </div>
                         
                         <div class="flex items-start space-x-4">
-                            <div class="w-14 h-14 bg-[#71b346]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-phone-alt text-2xl text-[#71b346]"></i>
+                            <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: {{ $secondaryColor }}20;">
+                                <i class="fas fa-phone-alt text-2xl" style="color: {{ $secondaryColor }};"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-gray-900 mb-1 text-lg">Phone</h4>
@@ -109,8 +106,8 @@
                         </div>
                         
                         <div class="flex items-start space-x-4">
-                            <div class="w-14 h-14 bg-[#04726d]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-envelope text-2xl text-[#04726d]"></i>
+                            <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: {{ $primaryColor }}20;">
+                                <i class="fas fa-envelope text-2xl" style="color: {{ $primaryColor }};"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-gray-900 mb-1 text-lg">Email</h4>
@@ -120,8 +117,8 @@
                         
                         @if($contactInfo->fax)
                         <div class="flex items-start space-x-4">
-                            <div class="w-14 h-14 bg-[#71b346]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-fax text-2xl text-[#71b346]"></i>
+                            <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: {{ $secondaryColor }}20;">
+                                <i class="fas fa-fax text-2xl" style="color: {{ $secondaryColor }};"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-gray-900 mb-1 text-lg">Fax</h4>
@@ -133,7 +130,7 @@
                 </div>
 
                 <!-- Business Hours -->
-                <div class="bg-gradient-to-br from-[#04726d] to-[#71b346] rounded-3xl shadow-xl p-10 text-white">
+                <div class="rounded-3xl shadow-xl p-10 text-white" style="background: linear-gradient(to bottom right, {{ $primaryColor }}, {{ $secondaryColor }});">
                     <h3 class="text-2xl font-bold mb-6">Business Hours</h3>
                     <div class="space-y-4">
                         <div class="flex justify-between items-center pb-4 border-b border-white/20">
@@ -178,21 +175,21 @@
         <h3 class="text-2xl font-bold text-gray-900 mb-6">Follow Us on Social Media</h3>
         <div class="flex justify-center space-x-4">
             @if($contactInfo->facebook_url)
-            <a href="{{ $contactInfo->facebook_url }}" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-[#04726d] hover:bg-[#04726d] hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110">
+            <a href="{{ $contactInfo->facebook_url }}" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110" style="color: {{ $primaryColor }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='{{ $primaryColor }}';">
                 <i class="fab fa-facebook-f text-xl"></i>
             </a>
             @endif
             @if($contactInfo->instagram_url)
-            <a href="{{ $contactInfo->instagram_url }}" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-[#04726d] hover:bg-[#04726d] hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110">
+            <a href="{{ $contactInfo->instagram_url }}" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110" style="color: {{ $primaryColor }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='{{ $primaryColor }}';">
                 <i class="fab fa-instagram text-xl"></i>
             </a>
             @endif
             @if($contactInfo->twitter_url)
-            <a href="{{ $contactInfo->twitter_url }}" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-[#04726d] hover:bg-[#04726d] hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110">
+            <a href="{{ $contactInfo->twitter_url }}" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110" style="color: {{ $primaryColor }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='{{ $primaryColor }}';">
                 <i class="fab fa-twitter text-xl"></i>
             </a>
             @endif
-            <a href="https://wa.me/6281234567890" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-[#04726d] hover:bg-[#04726d] hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110">
+            <a href="https://wa.me/6281234567890" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110" style="color: {{ $primaryColor }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='{{ $primaryColor }}';">
                 <i class="fab fa-whatsapp text-xl"></i>
             </a>
         </div>
@@ -202,7 +199,7 @@
 <x-footer />
 
 <!-- Scroll to Top -->
-<button id="scrollTop" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-br from-[#04726d] to-[#71b346] text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center transform hover:scale-110 group">
+<button id="scrollTop" class="fixed bottom-8 right-8 w-14 h-14 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center transform hover:scale-110 group" style="background: linear-gradient(to bottom right, {{ $primaryColor }}, {{ $secondaryColor }});">
     <i class="fas fa-arrow-up group-hover:-translate-y-1 transition-transform"></i>
 </button>
 @endsection

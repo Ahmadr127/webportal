@@ -1,15 +1,12 @@
 @extends('layouts.home')
 
+@php
+    $primaryColor = $siteSetting->primary_color ?? '#04726d';
+    $secondaryColor = $siteSetting->secondary_color ?? '#71b346';
+@endphp
+
 @section('content')
 <x-navbar />
-
-<!-- Page Header -->
-<section class="relative bg-[#04726d] py-24">
-    <div class="container mx-auto px-4 text-center text-white">
-        <h1 class="text-5xl font-bold mb-4" data-aos="fade-up">Our Services</h1>
-        <p class="text-xl opacity-90" data-aos="fade-up" data-aos-delay="100">Solusi Lengkap untuk Kebutuhan Fasilitas Anda</p>
-    </div>
-</section>
 
 <!-- Services Detail -->
 <section class="py-20 bg-gray-50">
@@ -34,8 +31,8 @@
                     
                     <!-- Content Side -->
                     <div class="p-12 {{ $index % 2 == 0 ? 'order-2' : 'order-1' }} flex flex-col justify-center">
-                        <div class="w-20 h-20 bg-[{{ $loop->iteration % 2 == 0 ? '#71b346' : '#04726d' }}]/10 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fas {{ $service->icon }} text-4xl text-[{{ $loop->iteration % 2 == 0 ? '#71b346' : '#04726d' }}]"></i>
+                        <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-6" style="background-color: {{ $loop->iteration % 2 == 0 ? $secondaryColor : $primaryColor }}20;">
+                            <i class="fas {{ $service->icon }} text-4xl" style="color: {{ $loop->iteration % 2 == 0 ? $secondaryColor : $primaryColor }};"></i>
                         </div>
                         <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ $service->title }}</h2>
                         <p class="text-gray-600 leading-relaxed mb-6">{{ $service->short_description }}</p>
@@ -45,14 +42,14 @@
                         <ul class="space-y-3 mb-8">
                             @foreach($service->features as $feature)
                             <li class="flex items-center text-gray-700">
-                                <i class="fas fa-check-circle text-[#71b346] mr-3"></i>
+                                <i class="fas fa-check-circle mr-3" style="color: {{ $secondaryColor }};"></i>
                                 <span>{{ $feature }}</span>
                             </li>
                             @endforeach
                         </ul>
                         @endif
                         
-                        <a href="{{ route('contact') }}" class="inline-flex items-center text-[#04726d] font-bold hover:text-[#71b346] transition-colors group">
+                        <a href="{{ route('contact') }}" class="inline-flex items-center font-bold hover:transition-colors group" style="color: {{ $primaryColor }};" onmouseover="this.style.color='{{ $secondaryColor }}'" onmouseout="this.style.color='{{ $primaryColor }}';">
                             Request a Quote
                             <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
                         </a>
@@ -70,64 +67,15 @@
     </div>
 </section>
 
-<!-- Why Choose Us -->
-<section class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Choose Our Services?</h2>
-            <div class="w-24 h-1 bg-[#71b346] mx-auto"></div>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="text-center p-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-20 h-20 bg-[#04726d]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-certificate text-4xl text-[#04726d]"></i>
-                </div>
-                <h4 class="font-bold text-gray-900 mb-2 text-xl">Certified Professionals</h4>
-                <p class="text-gray-600">Tim yang terlatih dan bersertifikat dengan pengalaman bertahun-tahun</p>
-            </div>
-            
-            <div class="text-center p-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="w-20 h-20 bg-[#71b346]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-clock text-4xl text-[#71b346]"></i>
-                </div>
-                <h4 class="font-bold text-gray-900 mb-2 text-xl">24/7 Support</h4>
-                <p class="text-gray-600">Layanan dukungan tersedia kapan saja untuk kebutuhan Anda</p>
-            </div>
-            
-            <div class="text-center p-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="w-20 h-20 bg-[#04726d]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-dollar-sign text-4xl text-[#04726d]"></i>
-                </div>
-                <h4 class="font-bold text-gray-900 mb-2 text-xl">Competitive Pricing</h4>
-                <p class="text-gray-600">Harga yang kompetitif dengan kualitas layanan terbaik</p>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- Removed Why Choose Us -->
 
-<!-- CTA Section -->
-<section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4">
-        <div class="bg-gradient-to-r from-[#04726d] to-[#71b346] rounded-3xl p-12 text-center" data-aos="fade-up">
-            <h3 class="text-3xl font-bold text-white mb-4">Ready to Get Started?</h3>
-            <p class="text-white/90 mb-8 max-w-2xl mx-auto">Hubungi kami sekarang untuk mendapatkan konsultasi gratis dan penawaran terbaik.</p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="{{ route('contact') }}" class="bg-white text-[#04726d] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition transform hover:scale-105 shadow-xl">
-                    Contact Us
-                </a>
-                <a href="tel:021-26692269" class="bg-transparent border-2 border-white text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-[#04726d] transition">
-                    Call Now
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- Removed CTA Section -->
+
 
 <x-footer />
 
 <!-- Scroll to Top -->
-<button id="scrollTop" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-br from-[#04726d] to-[#71b346] text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center transform hover:scale-110 group">
+<button id="scrollTop" class="fixed bottom-8 right-8 w-14 h-14 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center justify-center transform hover:scale-110 group" style="background: linear-gradient(to bottom right, {{ $primaryColor }}, {{ $secondaryColor }});">
     <i class="fas fa-arrow-up group-hover:-translate-y-1 transition-transform"></i>
 </button>
 @endsection
