@@ -87,7 +87,7 @@
                         </div>
                         <i class="fas fa-arrow-right ml-auto text-gray-300 group-hover:text-green-500 transition-colors"></i>
                     </a>
-                    @endif
+                    @endif      
                     
                     @if($user->hasPermission('manage_permissions'))
                     <a href="{{ route('permissions.index') }}" class="flex items-center p-4 bg-white border border-gray-200 rounded-xl hover:border-purple-500 hover:shadow-md transition-all group">

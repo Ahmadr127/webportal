@@ -222,6 +222,13 @@
                     </li>
                     @endif
 
+                    <li>
+                        <a href="{{ route('admin.faqs.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="FAQs">
+                            <i class="fas fa-question-circle w-5" :class="sidebarCollapsed ? '' : 'mr-3'"></i>
+                            <span x-show="!sidebarCollapsed">FAQs</span>
+                        </a>
+                    </li>
+
                     @if(auth()->user()->hasPermission('manage_about_content'))
                     <li>
                         <a href="{{ route('admin.about-content.index') }}" class="sidebar-menu-item flex items-center px-4 py-3 text-white rounded-lg transition-colors {{ request()->routeIs('admin.about-content.*') ? 'active' : '' }}" :class="sidebarCollapsed ? 'justify-center' : ''" title="About Content">

@@ -117,6 +117,9 @@ Route::middleware('auth')->group(function () {
             Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class);
         });
 
+        // FAQ Management
+        Route::resource('faqs', \App\Http\Controllers\Admin\FaqController::class);
+
         // About Content Management
         Route::middleware('permission:manage_about_content')->group(function () {
             Route::resource('about-content', \App\Http\Controllers\Admin\AboutContentController::class);

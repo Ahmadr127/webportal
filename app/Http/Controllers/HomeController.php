@@ -14,6 +14,7 @@ use App\Models\AboutSection;
 use App\Models\CompanyValue;
 use App\Models\Stat;
 use App\Models\Testimonial;
+use App\Models\Faq;
 
 class HomeController extends Controller
 {
@@ -29,10 +30,11 @@ class HomeController extends Controller
         $services = Service::active()->ordered()->take(3)->get();
         $stats = Stat::active()->ordered()->get();
         $testimonials = Testimonial::active()->ordered()->get();
+        $faqs = Faq::active()->ordered()->get();
         $siteSetting = SiteSetting::getInstance();
         $contactInfo = ContactInfo::getInstance();
 
-        return view('home', compact('services', 'sliders', 'stats', 'testimonials', 'siteSetting', 'contactInfo'));
+        return view('home', compact('services', 'sliders', 'stats', 'testimonials', 'faqs', 'siteSetting', 'contactInfo'));
     }
 
     /**

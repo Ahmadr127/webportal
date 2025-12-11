@@ -172,6 +172,38 @@
     </div>
 </section>
 
+<!-- FAQ Section -->
+<section class="py-24 bg-gray-50" id="faq">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="font-bold tracking-wider uppercase text-sm" style="color: {{ $secondaryColor }};">FAQ</span>
+            <h2 class="text-4xl font-bold text-gray-900 mt-2">Frequently Asked Questions</h2>
+        </div>
+
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up">
+            @foreach($faqs as $faq)
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow" x-data="{ open: false }">
+                <button @click="open = !open" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 transition-colors">
+                    <span class="font-bold text-lg text-gray-900 pr-4">{{ $faq->question }}</span>
+                    <i class="fas fa-chevron-down transition-transform duration-300 flex-shrink-0" style="color: {{ $primaryColor }};" :class="{'transform rotate-180': open}"></i>
+                </button>
+                <div x-show="open" 
+                     x-transition:enter="transition ease-out duration-200" 
+                     x-transition:enter-start="opacity-0 transform scale-95" 
+                     x-transition:enter-end="opacity-100 transform scale-100" 
+                     x-transition:leave="transition ease-in duration-150"
+                     x-transition:leave-start="opacity-100 transform scale-100"
+                     x-transition:leave-end="opacity-0 transform scale-95"
+                     class="px-6 pb-4 text-gray-600 border-t border-gray-100 pt-4">
+                    {!! nl2br(e($faq->answer)) !!}
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const track = document.getElementById('testimonialTrack');
