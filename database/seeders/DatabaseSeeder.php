@@ -30,12 +30,14 @@ class DatabaseSeeder extends Seeder
         // Create admin user first before seeding content
         $adminRole = \App\Models\Role::where('name', 'admin')->first();
         
-        User::factory()->create([
-            'name' => 'Administrator',
-            'username' => 'admin',
-            'email' => 'admin@example.com',
-            'role_id' => $adminRole->id,
-        ]);
+        if (!User::where('username', 'admin')->exists()) {
+            User::factory()->create([
+                'name' => 'Administrator',
+                'username' => 'admin',
+                'email' => 'admin@example.com',
+                'role_id' => $adminRole->id,
+            ]);
+        }
 
         // Seed content data (requires admin user to exist)
         $this->call([

@@ -29,7 +29,7 @@
                         @endif
                         <div class="flex items-center mt-2 text-sm">
                             <i class="fas fa-search-plus mr-2"></i>
-                            <span>Click to view</span>
+                            <span>Klik untuk melihat</span>
                         </div>
                     </div>
                 </div>

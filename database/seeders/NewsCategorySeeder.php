@@ -14,45 +14,45 @@ class NewsCategorySeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Company News',
-                'slug' => 'company-news',
-                'description' => 'Latest updates and announcements from our company',
+                'name' => 'Berita Perusahaan',
+                'slug' => 'berita-perusahaan',
+                'description' => 'Pembaruan dan pengumuman terbaru dari perusahaan kami',
                 'is_active' => true,
             ],
             [
-                'name' => 'Industry Insights',
-                'slug' => 'industry-insights',
-                'description' => 'Expert insights and trends in our industry',
+                'name' => 'Wawasan Industri',
+                'slug' => 'wawasan-industri',
+                'description' => 'Wawasan ahli dan tren di industri kami',
                 'is_active' => true,
             ],
             [
-                'name' => 'Product Updates',
-                'slug' => 'product-updates',
-                'description' => 'New features and improvements to our products',
+                'name' => 'Pembaruan Produk',
+                'slug' => 'pembaruan-produk',
+                'description' => 'Fitur baru dan perbaikan pada produk kami',
                 'is_active' => true,
             ],
             [
-                'name' => 'Events',
-                'slug' => 'events',
-                'description' => 'Upcoming events, webinars, and conferences',
+                'name' => 'Acara',
+                'slug' => 'acara',
+                'description' => 'Acara, webinar, dan konferensi mendatang',
                 'is_active' => true,
             ],
             [
-                'name' => 'Case Studies',
-                'slug' => 'case-studies',
-                'description' => 'Success stories from our clients',
+                'name' => 'Studi Kasus',
+                'slug' => 'studi-kasus',
+                'description' => 'Kisah sukses dari klien kami',
                 'is_active' => true,
             ],
             [
-                'name' => 'Technology',
-                'slug' => 'technology',
-                'description' => 'Latest technology trends and innovations',
+                'name' => 'Teknologi',
+                'slug' => 'teknologi',
+                'description' => 'Tren dan inovasi teknologi terbaru',
                 'is_active' => true,
             ],
         ];
 
         foreach ($categories as $category) {
-            NewsCategory::create($category);
+            NewsCategory::updateOrCreate(['slug' => $category['slug']], $category);
         }
 
         $this->command->info('News categories seeded successfully!');

@@ -53,10 +53,10 @@
                 <p class="text-lg mb-10 opacity-80 max-w-2xl mx-auto" x-text="slide.description"></p>
                 <div class="flex flex-col md:flex-row gap-4 justify-center">
                     <a href="#about" class="text-white px-8 py-4 rounded-full font-bold transition transform hover:scale-105 shadow-lg border-2" style="background-color: {{ $secondaryColor }}; border-color: {{ $secondaryColor }};" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-                        Explore Services
+                        Jelajahi Layanan
                     </a>
                     <a href="#contact" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white transition transform hover:scale-105" style="color: white;" onmouseover="this.style.backgroundColor='white'; this.style.color='{{ $primaryColor }}'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='white'">
-                        Contact Us
+                        Hubungi Kami
                     </a>
                 </div>
             </div>
@@ -98,8 +98,8 @@
 <section id="about" class="py-24 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="text-center mb-20" data-aos="fade-up">
-            <span class="font-bold tracking-wider uppercase text-sm" style="color: {{ $secondaryColor }};">Our Expertise</span>
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-6">Comprehensive Solutions</h2>
+            <span class="font-bold tracking-wider uppercase text-sm" style="color: {{ $secondaryColor }};">Keahlian Kami</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-6">Solusi Komprehensif</h2>
             <div class="w-24 h-1.5 mx-auto rounded-full" style="background: linear-gradient(to right, {{ $primaryColor }}, {{ $secondaryColor }});"></div>
         </div>
 
@@ -124,8 +124,8 @@
     
     <div class="container mx-auto px-4 relative z-10">
         <div class="text-center mb-16" data-aos="fade-up">
-            <span class="font-bold tracking-wider uppercase text-sm" style="color: {{ $primaryColor }};">Testimonials</span>
-            <h2 class="text-4xl font-bold text-gray-900 mt-2">What Our Clients Say</h2>
+            <span class="font-bold tracking-wider uppercase text-sm" style="color: {{ $primaryColor }};">Testimoni</span>
+            <h2 class="text-4xl font-bold text-gray-900 mt-2">Apa Kata Klien Kami</h2>
         </div>
 
         <!-- Testimonials Carousel -->

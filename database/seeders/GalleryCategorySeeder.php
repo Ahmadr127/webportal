@@ -14,45 +14,45 @@ class GalleryCategorySeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Office',
-                'slug' => 'office',
-                'description' => 'Our office spaces and work environment',
+                'name' => 'Kantor',
+                'slug' => 'kantor',
+                'description' => 'Ruang kantor dan lingkungan kerja kami',
                 'is_active' => true,
             ],
             [
-                'name' => 'Team',
-                'slug' => 'team',
-                'description' => 'Our amazing team members',
+                'name' => 'Tim',
+                'slug' => 'tim',
+                'description' => 'Anggota tim kami yang luar biasa',
                 'is_active' => true,
             ],
             [
-                'name' => 'Events',
-                'slug' => 'events',
-                'description' => 'Company events and celebrations',
+                'name' => 'Acara',
+                'slug' => 'acara',
+                'description' => 'Acara dan perayaan perusahaan',
                 'is_active' => true,
             ],
             [
-                'name' => 'Projects',
-                'slug' => 'projects',
-                'description' => 'Our completed projects and work',
+                'name' => 'Proyek',
+                'slug' => 'proyek',
+                'description' => 'Proyek dan pekerjaan kami yang sudah selesai',
                 'is_active' => true,
             ],
             [
-                'name' => 'Products',
-                'slug' => 'products',
-                'description' => 'Product photos and demonstrations',
+                'name' => 'Produk',
+                'slug' => 'produk',
+                'description' => 'Foto produk dan demonstrasi',
                 'is_active' => true,
             ],
             [
-                'name' => 'Awards',
-                'slug' => 'awards',
-                'description' => 'Awards and recognitions',
+                'name' => 'Penghargaan',
+                'slug' => 'penghargaan',
+                'description' => 'Penghargaan dan pengakuan',
                 'is_active' => true,
             ],
         ];
 
         foreach ($categories as $category) {
-            GalleryCategory::create($category);
+            GalleryCategory::updateOrCreate(['slug' => $category['slug']], $category);
         }
 
         $this->command->info('Gallery categories seeded successfully!');

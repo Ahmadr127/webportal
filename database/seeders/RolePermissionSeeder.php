@@ -22,39 +22,39 @@ class RolePermissionSeeder extends Seeder
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create($permission);
+            Permission::updateOrCreate(['name' => $permission['name']], $permission);
         }
 
         // Create Roles
-        $adminRole = Role::create([
+        $adminRole = Role::updateOrCreate(['name' => 'admin'], [
             'name' => 'admin',
             'display_name' => 'Administrator',
             'description' => 'Role dengan akses penuh ke sistem'
         ]);
 
-        $librarianRole = Role::create([
+        $librarianRole = Role::updateOrCreate(['name' => 'librarian'], [
             'name' => 'librarian',
             'display_name' => 'Pustakawan',
             'description' => 'Role untuk mengelola perpustakaan'
         ]);
 
-        $userRole = Role::create([
+        $userRole = Role::updateOrCreate(['name' => 'user'], [
             'name' => 'user',
             'display_name' => 'Pengguna',
             'description' => 'Role untuk pengguna umum'
         ]);
 
         // Assign permissions to roles
-        $adminRole->permissions()->attach(Permission::all()); // Admin gets all permissions
+        $adminRole->permissions()->syncWithoutDetaching(Permission::all()); // Admin gets all permissions
         
-        $librarianRole->permissions()->attach(
+        $librarianRole->permissions()->syncWithoutDetaching(
             Permission::whereIn('name', [
                 'view_dashboard',
                 'manage_users'
             ])->get()
         );
         
-        $userRole->permissions()->attach(
+        $userRole->permissions()->syncWithoutDetaching(
             Permission::whereIn('name', [
                 'view_dashboard'
             ])->get()

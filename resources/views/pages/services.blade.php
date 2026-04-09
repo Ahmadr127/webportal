@@ -38,7 +38,7 @@
                         <p class="text-gray-600 leading-relaxed mb-6">{{ $service->short_description }}</p>
                         
                         @if($service->features && count($service->features) > 0)
-                        <h4 class="font-bold text-gray-900 mb-4">Key Features:</h4>
+                        <h4 class="font-bold text-gray-900 mb-4">Fitur Utama:</h4>
                         <ul class="space-y-3 mb-8">
                             @foreach($service->features as $feature)
                             <li class="flex items-center text-gray-700">
@@ -50,7 +50,7 @@
                         @endif
                         
                         <a href="{{ route('contact') }}" class="inline-flex items-center font-bold hover:transition-colors group" style="color: {{ $primaryColor }};" onmouseover="this.style.color='{{ $secondaryColor }}'" onmouseout="this.style.color='{{ $primaryColor }}';">
-                            Request a Quote
+                            Minta Penawaran
                             <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
                         </a>
                     </div>

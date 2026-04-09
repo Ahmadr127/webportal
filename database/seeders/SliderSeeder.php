@@ -13,11 +13,11 @@ class SliderSeeder extends Seeder
     public function run(): void
     {
         // First, clear existing sliders
-        Slider::truncate();
+        // Slider::truncate();
         
         $sliders = [
             [
-                'title' => 'Smart Parking & Facility Services',
+                'title' => 'Parkir Cerdas & Layanan Fasilitas Terintegrasi',
                 'subtitle' => 'SCAN - TAP - GO',
                 'description' => 'Solusi terintegrasi untuk pengelolaan parkir, keamanan, dan kebersihan dengan teknologi modern.',
                 'image' => 'https://images.unsplash.com/photo-1590674899484-d5640e854abe?w=1920&q=80',
@@ -25,16 +25,16 @@ class SliderSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'title' => 'Professional Security Services',
-                'subtitle' => '24/7 Protection',
+                'title' => 'Layanan Keamanan Profesional',
+                'subtitle' => 'Perlindungan 24/7',
                 'description' => 'Personil keamanan terlatih dan bersertifikat untuk menjaga aset dan kenyamanan lingkungan bisnis Anda.',
                 'image' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80',
                 'order' => 2,
                 'is_active' => true,
             ],
             [
-                'title' => 'Premium Cleaning Solutions',
-                'subtitle' => 'Clean & Hygienic',
+                'title' => 'Solusi Kebersihan Premium',
+                'subtitle' => 'Bersih & Higienis',
                 'description' => 'Layanan kebersihan profesional untuk gedung perkantoran, mall, dan area publik dengan standar higienis tinggi.',
                 'image' => 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1920&q=80',
                 'order' => 3,
@@ -43,7 +43,7 @@ class SliderSeeder extends Seeder
         ];
 
         foreach ($sliders as $slider) {
-            Slider::create($slider);
+            Slider::updateOrCreate(['order' => $slider['order']], $slider);
         }
     }
 }

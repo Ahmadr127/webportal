@@ -14,7 +14,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <!-- Contact Form -->
             <div class="bg-white rounded-3xl shadow-xl p-10" data-aos="fade-right">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">Send us a Message</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Kirimkan Pesan</h2>
                 
                 @if(session('success'))
                     <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
@@ -36,14 +36,14 @@
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap *</label>
                             <input type="text" name="name" value="{{ old('name') }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all @error('name') border-red-500 @enderror" style="--tw-ring-color: {{ $primaryColor }};" placeholder="John Doe">
                             @error('name')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Alamat Email *</label>
                             <input type="email" name="email" value="{{ old('email') }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all @error('email') border-red-500 @enderror" style="--tw-ring-color: {{ $primaryColor }};" placeholder="john@example.com">
                             @error('email')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -51,28 +51,28 @@
                         </div>
                     </div>
                     <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Subjek *</label>
                         <select name="subject" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all @error('subject') border-red-500 @enderror" style="--tw-ring-color: {{ $primaryColor }};">
-                            <option value="">-- Select Subject --</option>
-                            <option value="General Inquiry" {{ old('subject') == 'General Inquiry' ? 'selected' : '' }}>General Inquiry</option>
-                            <option value="Parking Management" {{ old('subject') == 'Parking Management' ? 'selected' : '' }}>Parking Management</option>
-                            <option value="Cleaning Service" {{ old('subject') == 'Cleaning Service' ? 'selected' : '' }}>Cleaning Service</option>
-                            <option value="Security Service" {{ old('subject') == 'Security Service' ? 'selected' : '' }}>Security Service</option>
-                            <option value="Partnership" {{ old('subject') == 'Partnership' ? 'selected' : '' }}>Partnership</option>
+                            <option value="">-- Pilih Subjek --</option>
+                            <option value="Pertanyaan Umum" {{ old('subject') == 'Pertanyaan Umum' ? 'selected' : '' }}>Pertanyaan Umum</option>
+                            <option value="Manajemen Parkir" {{ old('subject') == 'Manajemen Parkir' ? 'selected' : '' }}>Manajemen Parkir</option>
+                            <option value="Layanan Kebersihan" {{ old('subject') == 'Layanan Kebersihan' ? 'selected' : '' }}>Layanan Kebersihan</option>
+                            <option value="Layanan Keamanan" {{ old('subject') == 'Layanan Keamanan' ? 'selected' : '' }}>Layanan Keamanan</option>
+                            <option value="Kemitraan" {{ old('subject') == 'Kemitraan' ? 'selected' : '' }}>Kemitraan</option>
                         </select>
                         @error('subject')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="mb-8">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
-                        <textarea name="message" rows="5" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all @error('message') border-red-500 @enderror" style="--tw-ring-color: {{ $primaryColor }};" placeholder="Tell us about your needs...">{{ old('message') }}</textarea>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Pesan *</label>
+                        <textarea name="message" rows="5" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:bg-white transition-all @error('message') border-red-500 @enderror" style="--tw-ring-color: {{ $primaryColor }};" placeholder="Beritahu kami tentang kebutuhan Anda...">{{ old('message') }}</textarea>
                         @error('message')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
                     <button type="submit" class="w-full text-white py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-all transform hover:-translate-y-1" style="background: linear-gradient(to right, {{ $primaryColor }}, {{ $secondaryColor }});">
-                        <i class="fas fa-paper-plane mr-2"></i>Send Message
+                        <i class="fas fa-paper-plane mr-2"></i>Kirim Pesan
                     </button>
                 </form>
             </div>
@@ -80,14 +80,14 @@
             <!-- Contact Information -->
             <div data-aos="fade-left">
                 <div class="bg-white rounded-3xl shadow-xl p-10 mb-6">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-8">Get in Touch</h2>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-8">Hubungi Kami</h2>
                     <div class="space-y-6">
                         <div class="flex items-start space-x-4">
                             <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: {{ $primaryColor }}20;">
                                 <i class="fas fa-map-marker-alt text-2xl" style="color: {{ $primaryColor }};"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 mb-1 text-lg">Office Address</h4>
+                                <h4 class="font-bold text-gray-900 mb-1 text-lg">Alamat Kantor</h4>
                                 <p class="text-gray-600 leading-relaxed">{{ $contactInfo->address ?? 'Jl. Tiang Bendera V Rukan Batavia Unit R-S No.41-43, Kel. Roa Malaka, Tambora, Jakarta Barat 11230' }}</p>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                                 <i class="fas fa-phone-alt text-2xl" style="color: {{ $secondaryColor }};"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 mb-1 text-lg">Phone</h4>
+                                <h4 class="font-bold text-gray-900 mb-1 text-lg">Telepon</h4>
                                 <p class="text-gray-600">{{ $contactInfo->phone_1 ?? '021-26692269' }}</p>
                                 @if($contactInfo->phone_2)
                                 <p class="text-gray-600">{{ $contactInfo->phone_2 }}</p>
@@ -114,6 +114,22 @@
                                 <p class="text-gray-600">{{ $contactInfo->email ?? 'contact@ezservices.co.id' }}</p>
                             </div>
                         </div>
+
+                        @if($contactInfo->whatsapp)
+                        <div class="flex items-start space-x-4">
+                            <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: {{ $secondaryColor }}20;">
+                                <i class="fab fa-whatsapp text-2xl" style="color: {{ $secondaryColor }};"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1 text-lg">WhatsApp</h4>
+                                <p class="text-gray-600">
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $contactInfo->whatsapp) }}" target="_blank" class="hover:underline">
+                                        {{ $contactInfo->whatsapp }}
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        @endif
                         
                         @if($contactInfo->fax)
                         <div class="flex items-start space-x-4">
@@ -121,7 +137,7 @@
                                 <i class="fas fa-fax text-2xl" style="color: {{ $secondaryColor }};"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 mb-1 text-lg">Fax</h4>
+                                <h4 class="font-bold text-gray-900 mb-1 text-lg">Faks</h4>
                                 <p class="text-gray-600">{{ $contactInfo->fax }}</p>
                             </div>
                         </div>
@@ -131,19 +147,19 @@
 
                 <!-- Business Hours -->
                 <div class="rounded-3xl shadow-xl p-10 text-white" style="background: linear-gradient(to bottom right, {{ $primaryColor }}, {{ $secondaryColor }});">
-                    <h3 class="text-2xl font-bold mb-6">Business Hours</h3>
+                    <h3 class="text-2xl font-bold mb-6">Jam Kerja</h3>
                     <div class="space-y-4">
                         <div class="flex justify-between items-center pb-4 border-b border-white/20">
-                            <span class="font-medium">Monday - Friday</span>
+                            <span class="font-medium">Senin - Jumat</span>
                             <span class="font-bold">08:00 - 17:00</span>
                         </div>
                         <div class="flex justify-between items-center pb-4 border-b border-white/20">
-                            <span class="font-medium">Saturday</span>
+                            <span class="font-medium">Sabtu</span>
                             <span class="font-bold">08:00 - 12:00</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="font-medium">Sunday</span>
-                            <span class="font-bold">Closed</span>
+                            <span class="font-medium">Minggu</span>
+                            <span class="font-bold">Tutup</span>
                         </div>
                     </div>
                 </div>
@@ -170,7 +186,7 @@
             <div class="bg-gray-200 h-96 flex items-center justify-center">
                 <p class="text-gray-500">
                     <i class="fas fa-map-marked-alt text-4xl mb-2"></i><br>
-                    Map not configured yet
+                    Peta belum dikonfigurasi
                 </p>
             </div>
             @endif
@@ -181,7 +197,7 @@
 <!-- Social Media -->
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4 text-center">
-        <h3 class="text-2xl font-bold text-gray-900 mb-6">Follow Us on Social Media</h3>
+        <h3 class="text-2xl font-bold text-gray-900 mb-6">Ikuti Kami di Media Sosial</h3>
         <div class="flex justify-center space-x-4">
             @if($contactInfo->facebook_url)
             <a href="{{ $contactInfo->facebook_url }}" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110" style="color: {{ $primaryColor }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='{{ $primaryColor }}';">
@@ -198,9 +214,11 @@
                 <i class="fab fa-twitter text-xl"></i>
             </a>
             @endif
-            <a href="https://wa.me/6281234567890" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110" style="color: {{ $primaryColor }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='{{ $primaryColor }}';">
+            @if($contactInfo->whatsapp)
+            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $contactInfo->whatsapp) }}" target="_blank" class="w-14 h-14 bg-white rounded-full flex items-center justify-center hover:text-white transition-all shadow-lg hover:shadow-xl transform hover:scale-110" style="color: {{ $primaryColor }};" onmouseover="this.style.backgroundColor='{{ $primaryColor }}'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='{{ $primaryColor }}';">
                 <i class="fab fa-whatsapp text-xl"></i>
             </a>
+            @endif
         </div>
     </div>
 </section>

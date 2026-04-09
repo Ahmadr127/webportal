@@ -22,7 +22,7 @@
                 {{ $news->published_at ? $news->published_at->format('d F Y') : $news->created_at->format('d F Y') }}
                 <span class="mx-3">•</span>
                 <i class="fas fa-eye mr-2"></i>
-                {{ $news->views_count }} views
+                {{ $news->views_count }} tampilan
             </div>
             
             <!-- Title -->
@@ -65,7 +65,7 @@
             <!-- Tags -->
             @if($news->tags->count() > 0)
             <div class="mt-12 pt-8 border-t border-gray-200" data-aos="fade-up">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Tags:</h3>
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Tag:</h3>
                 <div class="flex flex-wrap gap-2">
                     @foreach($news->tags as $tag)
                     <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm hover:text-white transition-colors cursor-pointer" style="background-color: #f3f4f6;" onmouseover="this.style.backgroundColor='{{ $primaryColor }}'; this.style.color='white';" onmouseout="this.style.backgroundColor='#f3f4f6'; this.style.color='#374151';">
@@ -78,7 +78,7 @@
             
             <!-- Share Buttons -->
             <div class="mt-12 pt-8 border-t border-gray-200" data-aos="fade-up">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Share this article:</h3>
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Bagikan artikel ini:</h3>
                 <div class="flex gap-3">
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('news.show', $news->slug)) }}" 
                        target="_blank"
@@ -105,7 +105,7 @@
 @if($relatedNews->count() > 0)
 <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12" data-aos="fade-up">Related News</h2>
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12" data-aos="fade-up">Berita Terkait</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($relatedNews as $index => $related)
@@ -125,7 +125,7 @@
                     </h3>
                     <p class="text-gray-600 mb-4 line-clamp-2">{{ $related->excerpt }}</p>
                     <a href="{{ route('news.show', $related->slug) }}" class="inline-flex items-center font-semibold hover:transition-colors" style="color: {{ $primaryColor }};" onmouseover="this.style.color='{{ $secondaryColor }}'" onmouseout="this.style.color='{{ $primaryColor }}';">
-                        Read More
+                        Baca Selengkapnya
                         <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
@@ -141,7 +141,7 @@
     <div class="container mx-auto px-4 text-center">
         <a href="{{ route('news') }}" class="inline-flex items-center text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105" style="background: linear-gradient(to right, {{ $primaryColor }}, {{ $secondaryColor }});">
             <i class="fas fa-arrow-left mr-3"></i>
-            Back to All News
+            Kembali ke Semua Berita
         </a>
     </div>
 </section>

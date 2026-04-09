@@ -15,7 +15,7 @@ class StatSeeder extends Seeder
         $stats = [
             [
                 'key' => 'years_experience',
-                'label' => 'Years of Experience',
+                'label' => 'Tahun Pengalaman',
                 'value' => '10+',
                 'icon' => 'fa-calendar-check',
                 'order' => 1,
@@ -23,7 +23,7 @@ class StatSeeder extends Seeder
             ],
             [
                 'key' => 'happy_clients',
-                'label' => 'Happy Clients',
+                'label' => 'Klien Bahagia',
                 'value' => '500+',
                 'icon' => 'fa-smile',
                 'order' => 2,
@@ -31,7 +31,7 @@ class StatSeeder extends Seeder
             ],
             [
                 'key' => 'projects_completed',
-                'label' => 'Projects Completed',
+                'label' => 'Proyek Selesai',
                 'value' => '1,000+',
                 'icon' => 'fa-check-circle',
                 'order' => 3,
@@ -39,7 +39,7 @@ class StatSeeder extends Seeder
             ],
             [
                 'key' => 'team_members',
-                'label' => 'Team Members',
+                'label' => 'Anggota Tim',
                 'value' => '50+',
                 'icon' => 'fa-users',
                 'order' => 4,
@@ -47,7 +47,7 @@ class StatSeeder extends Seeder
             ],
             [
                 'key' => 'awards_won',
-                'label' => 'Awards Won',
+                'label' => 'Penghargaan',
                 'value' => '25+',
                 'icon' => 'fa-trophy',
                 'order' => 5,
@@ -55,7 +55,7 @@ class StatSeeder extends Seeder
             ],
             [
                 'key' => 'countries_served',
-                'label' => 'Countries Served',
+                'label' => 'Negara Terjangkau',
                 'value' => '15+',
                 'icon' => 'fa-globe',
                 'order' => 6,
@@ -64,7 +64,7 @@ class StatSeeder extends Seeder
         ];
 
         foreach ($stats as $stat) {
-            Stat::create($stat);
+            Stat::updateOrCreate(['key' => $stat['key']], $stat);
         }
 
         $this->command->info('Stats seeded successfully!');

@@ -15,50 +15,50 @@ class CompanyValueSeeder extends Seeder
         $values = [
             [
                 'icon' => 'fa-lightbulb',
-                'title' => 'Innovation',
-                'description' => 'We constantly push boundaries and embrace new ideas to deliver cutting-edge solutions that keep our clients ahead of the curve.',
+                'title' => 'Inovasi',
+                'description' => 'Kami terus mendorong batasan dan merangkul ide-ide baru untuk memberikan solusi mutakhir yang membuat klien kami selangkah lebih maju.',
                 'order' => 1,
                 'is_active' => true,
             ],
             [
                 'icon' => 'fa-handshake',
-                'title' => 'Integrity',
-                'description' => 'We conduct our business with the highest ethical standards, building trust through transparency and honesty in all our interactions.',
+                'title' => 'Integritas',
+                'description' => 'Kami menjalankan bisnis kami dengan standar etika tertinggi, membangun kepercayaan melalui transparansi dan kejujuran dalam semua interaksi kami.',
                 'order' => 2,
                 'is_active' => true,
             ],
             [
                 'icon' => 'fa-trophy',
-                'title' => 'Excellence',
-                'description' => 'We are committed to delivering exceptional quality in everything we do, striving for perfection in every project and service.',
+                'title' => 'Keunggulan',
+                'description' => 'Kami berkomitmen untuk memberikan kualitas luar biasa dalam segala hal yang kami lakukan, berjuang untuk kesempurnaan dalam setiap proyek dan layanan.',
                 'order' => 3,
                 'is_active' => true,
             ],
             [
                 'icon' => 'fa-users',
-                'title' => 'Collaboration',
-                'description' => 'We believe in the power of teamwork, fostering a culture where diverse perspectives come together to create innovative solutions.',
+                'title' => 'Kolaborasi',
+                'description' => 'Kami percaya pada kekuatan kerja sama tim, memupuk budaya di mana beragam perspektif bersatu untuk menciptakan solusi inovatif.',
                 'order' => 4,
                 'is_active' => true,
             ],
             [
                 'icon' => 'fa-heart',
-                'title' => 'Customer Focus',
-                'description' => 'Our clients success is our success. We go above and beyond to understand and meet their needs, building lasting partnerships.',
+                'title' => 'Fokus Pelanggan',
+                'description' => 'Kesuksesan klien adalah kesuksesan kami. Kami bekerja ekstra untuk memahami dan memenuhi kebutuhan mereka, membangun kemitraan yang langgeng.',
                 'order' => 5,
                 'is_active' => true,
             ],
             [
                 'icon' => 'fa-rocket',
-                'title' => 'Agility',
-                'description' => 'We adapt quickly to changing market conditions and client needs, ensuring we always deliver relevant and timely solutions.',
+                'title' => 'Ketangkasan',
+                'description' => 'Kami beradaptasi dengan cepat terhadap perubahan kondisi pasar dan kebutuhan klien, memastikan kami selalu memberikan solusi yang relevan dan tepat waktu.',
                 'order' => 6,
                 'is_active' => true,
             ],
         ];
 
         foreach ($values as $value) {
-            CompanyValue::create($value);
+            CompanyValue::updateOrCreate(['order' => $value['order']], $value);
         }
 
         $this->command->info('Company values seeded successfully!');
