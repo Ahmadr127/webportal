@@ -38,7 +38,7 @@
              x-transition:leave="transition ease-in duration-500"
              x-transition:leave-start="opacity-100 transform scale-100"
              x-transition:leave-end="opacity-0 transform scale-95"
-             class="absolute inset-0 w-full h-full bg-cover bg-center"
+             class="absolute inset-0 w-full h-full bg-cover bg-[center_30%]"
              :style="`background-image: url('${slide.image}');`">
              <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40"></div>
         </div>
